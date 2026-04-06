@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Games e Tecnologia | Loja Gamer em Resende - RJ</title>
+<meta name="description" content="Start Games e Tecnologia em Resende - RJ. Consoles, retro, acessórios, tecnologia e jogos com entrega e retirada na loja.">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#5C94FC;--mario-red:#E52521;--coin:#F9D76B;--coin-dark:#E8A820;
+  --pipe:#5B8B3E;--pipe-dark:#3A6B1F;--brick:#C84C0C;--brick-dark:#8B4513;
+  --underground:#1A0A2E;--cloud:#fff;--pixel:#000;
+  --shadow:4px 4px 0 #000;--shadow-lg:6px 6px 0 #000;--shadow-xl:8px 8px 0 #000;
+  --max:1600px;--gap:clamp(16px,2.5vw,32px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Press Start 2P",monospace;background:var(--sky);color:#000;overflow-x:hidden;line-height:1.8}
+body.no-scroll{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit}
+iframe{display:block;border:0}
+.skip-link{position:absolute;left:16px;top:-120px;z-index:999;padding:10px 14px;background:#fff;border:3px solid #000}
+.skip-link:focus{top:16px}
+
+/* ── TIPOGRAFIA ── */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:3px solid #000;background:var(--coin);box-shadow:var(--shadow);font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.eyebrow::before{content:"";width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,var(--coin) 60%,var(--coin-dark) 100%);border:2px solid #000;flex:0 0 auto}
+.tag{display:inline-block;padding:4px 8px;border:2px solid #000;background:var(--coin);font-size:8px;text-transform:uppercase;box-shadow:2px 2px 0 #000}
+.tag.red{background:var(--mario-red);color:#fff}
+.tag.green{background:var(--pipe);color:#fff}
+.tag.blue{background:var(--sky);color:#fff}
+
+/* ── BOTÕES ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 18px;border:3px solid #000;border-radius:0;font-size:10px;text-transform:uppercase;letter-spacing:.06em;transition:transform .12s,box-shadow .12s;cursor:pointer;line-height:1.6}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+.btn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 #000}
+.btn-primary{background:var(--coin);color:#000;box-shadow:var(--shadow)}
+.btn-secondary{background:var(--mario-red);color:#fff;box-shadow:var(--shadow)}
+.btn-ghost{background:#fff;color:#000;box-shadow:var(--shadow)}
+.btn-green{background:var(--pipe);color:#fff;box-shadow:var(--shadow)}
+.btn-sm{min-height:38px;padding:8px 14px;font-size:9px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* ── CARDS ── */
+.card-coin{background:linear-gradient(180deg,var(--coin) 0%,var(--coin-dark) 100%);border:3px solid #000;box-shadow:var(--shadow)}
+.card-brick{background:linear-gradient(180deg,var(--brick) 0%,var(--brick-dark) 100%);border:3px solid #000;box-shadow:var(--shadow);color:#fff}
+.card-dark{background:var(--underground);border:3px solid #000;box-shadow:var(--shadow);color:#fff}
+
+/* ── LAYOUT ── */
+.container{max-width:var(--max);margin:0 auto;padding-inline:clamp(20px,5vw,80px)}
+.section{position:relative;padding-block:clamp(60px,8vw,120px)}
+.section-head{margin-bottom:clamp(28px,4vw,52px)}
+.section-head h2{font-size:clamp(20px,3vw,40px);text-transform:uppercase;line-height:1.4;margin-top:12px}
+.section-head p{font-size:10px;line-height:2.2;margin-top:12px;max-width:680px;opacity:.85}
+
+/* ── FAIXAS DECORATIVAS ── */
+.brick-strip{position:absolute;left:0;right:0;height:clamp(28px,4vw,44px);background:repeating-linear-gradient(90deg,transparent 0 58px,#000 58px 61px),repeating-linear-gradient(0deg,transparent 0 26px,#000 26px 29px),linear-gradient(180deg,var(--brick),var(--brick-dark));border-top:3px solid #000;border-bottom:3px solid #000}
+.brick-strip.top{top:0}
+.brick-strip.bottom{bottom:0}
+
+/* ── NUVENS ── */
+.cloud,.cloud::before,.cloud::after{position:absolute;background:#fff;border:3px solid #000;border-radius:999px}
+.cloud{height:36px;animation:cloud-drift 20s linear infinite}
+.cloud::before,.cloud::after{content:""}
+.cloud::before{width:54px;height:32px;left:18px;top:-16px}
+.cloud::after{width:44px;height:26px;right:12px;top:-12px}
+@keyframes cloud-drift{from{transform:translateX(-300px)}to{transform:translateX(calc(100vw + 300px))}}
+
+/* ══════════════════════════════════════
+   INTRO
+══════════════════════════════════════ */
+#intro{position:fixed;inset:0;z-index:500;background:var(--sky);display:flex;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+#intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+.intro-bg-hills{position:absolute;bottom:70px;left:0;right:0;height:160px;pointer-events:none}
+.intro-hill{position:absolute;bottom:0;background:var(--pipe);border:3px solid #000;border-bottom:none;border-radius:120px 120px 0 0}
+.intro-hill.h1{left:4%;width:200px;height:110px}
+.intro-hill.h2{left:26%;width:270px;height:145px}
+.intro-hill.h3{right:8%;width:220px;height:125px}
+.intro-ground{position:absolute;bottom:0;left:0;right:0;height:72px;background:repeating-linear-gradient(90deg,transparent 0 58px,#000 58px 61px),repeating-linear-gradient(0deg,transparent 0 26px,#000 26px 29px),linear-gradient(180deg,var(--brick),var(--brick-dark));border-top:4px solid #000}
+.intro-pipe-right{position:absolute;right:8%;bottom:70px;width:110px;height:100px;background:linear-gradient(180deg,var(--pipe),var(--pipe-dark));border:4px solid #000}
+.intro-pipe-right::before{content:"";position:absolute;left:-12px;right:-12px;top:-22px;height:26px;background:linear-gradient(180deg,#74a94d,var(--pipe-dark));border:4px solid #000}
+.intro-card{position:relative;z-index:2;background:#000;color:#fff;border:4px solid #fff;padding:clamp(24px,4vw,40px) clamp(20px,5vw,48px);text-align:center;box-shadow:8px 8px 0 rgba(255,255,255,.2);min-width:min(90vw,560px)}
+.intro-world{font-size:clamp(18px,4vw,32px);animation:hud-drop .5s ease forwards;line-height:1.6}
+.intro-lives{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px;font-size:13px;animation:hud-drop .5s .15s ease both}
+.intro-mushroom{width:38px;height:32px;position:relative}
+.intro-mushroom::before{content:"";position:absolute;left:0;right:0;top:0;height:20px;background:linear-gradient(180deg,#ff4741,#b70000);border:3px solid #000;border-bottom:none;border-radius:28px 28px 8px 8px}
+.intro-mushroom::after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:14px;background:#fff4ea;border:3px solid #000;border-top:none}
+.intro-press{margin-top:22px;animation:hud-drop .5s .3s ease both}
+.intro-press .btn{animation:blink .8s steps(1) infinite alternate}
+.mario-runner{position:absolute;bottom:82px;left:-140px;width:100px;height:100px;animation:mario-run 2.6s linear 1s forwards}
+.mario-px{position:absolute;left:0;bottom:0;width:4px;height:4px;transform:scale(2);transform-origin:bottom left;animation:mario-frames .33s steps(1) infinite 1s}
+#intro{
+  --sk:#f5c49c;--br:#6c3215;--bl:#5C94FC;--rd:#E52521;
+  --mf1:8px 0 0 var(--rd),12px 0 0 var(--rd),16px 0 0 var(--rd),4px 4px 0 var(--sk),8px 4px 0 var(--rd),12px 4px 0 var(--rd),16px 4px 0 var(--rd),20px 4px 0 var(--rd),4px 8px 0 var(--sk),8px 8px 0 var(--sk),12px 8px 0 var(--sk),4px 12px 0 var(--sk),8px 12px 0 var(--br),12px 12px 0 var(--sk),16px 12px 0 var(--sk),8px 16px 0 var(--br),12px 16px 0 var(--br),16px 16px 0 var(--br),4px 20px 0 var(--rd),8px 20px 0 var(--bl),12px 20px 0 var(--rd),16px 20px 0 var(--bl),20px 20px 0 var(--rd),4px 24px 0 var(--bl),8px 24px 0 var(--bl),12px 24px 0 var(--bl),16px 24px 0 var(--bl),20px 24px 0 var(--bl),8px 28px 0 var(--bl),12px 28px 0 var(--bl),16px 28px 0 var(--bl),4px 32px 0 var(--br),8px 32px 0 var(--bl),16px 32px 0 var(--bl),20px 32px 0 var(--br),4px 36px 0 var(--br),20px 36px 0 var(--br);
+  --mf2:8px 0 0 var(--rd),12px 0 0 var(--rd),16px 0 0 var(--rd),4px 4px 0 var(--sk),8px 4px 0 var(--rd),12px 4px 0 var(--rd),16px 4px 0 var(--rd),20px 4px 0 var(--rd),4px 8px 0 var(--sk),8px 8px 0 var(--sk),12px 8px 0 var(--sk),4px 12px 0 var(--sk),8px 12px 0 var(--br),12px 12px 0 var(--sk),16px 12px 0 var(--sk),8px 16px 0 var(--br),12px 16px 0 var(--br),16px 16px 0 var(--br),4px 20px 0 var(--rd),8px 20px 0 var(--bl),12px 20px 0 var(--rd),16px 20px 0 var(--bl),20px 20px 0 var(--rd),4px 24px 0 var(--bl),8px 24px 0 var(--bl),12px 24px 0 var(--bl),16px 24px 0 var(--bl),20px 24px 0 var(--bl),8px 28px 0 var(--bl),12px 28px 0 var(--bl),16px 28px 0 var(--bl),8px 32px 0 var(--br),12px 32px 0 var(--bl),20px 32px 0 var(--br),12px 36px 0 var(--br),16px 36px 0 var(--br)
+}
+@keyframes hud-drop{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{from{opacity:1}to{opacity:.15}}
+@keyframes mario-frames{0%,49%{box-shadow:var(--mf1)}50%,100%{box-shadow:var(--mf2)}}
+@keyframes mario-run{0%{transform:translateX(0)}78%{transform:translateX(calc(100vw - 280px))}90%{transform:translateX(calc(100vw - 280px))}100%{transform:translateX(calc(100vw - 280px)) translateY(80px)}}
+
+/* ══════════════════════════════════════
+   HEADER / NAV
+══════════════════════════════════════ */
+#main-header{position:sticky;top:0;z-index:200;background:#000;border-bottom:3px solid var(--mario-red)}
+.nav-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px clamp(16px,5vw,80px);flex-wrap:wrap}
+.hud-logo{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hud-box{padding:7px 10px;border:3px solid #000;background:#fff;box-shadow:var(--shadow);font-size:9px;line-height:1.6;color:#000}
+.hud-box strong{display:block;font-size:11px}
+.nav-links{display:flex;align-items:center;gap:4px;color:#fff}
+.nav-links a{padding:7px 11px;font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .15s}
+.nav-links a:hover{color:var(--coin)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.cart-btn{position:relative;width:50px;height:50px;border:3px solid #000;background:var(--coin);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:18px;color:#000}
+.cart-count{position:absolute;top:-8px;right:-8px;width:22px;height:22px;background:var(--mario-red);color:#fff;border:2px solid #000;border-radius:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-family:"Press Start 2P",monospace}
+.menu-btn{display:none;width:48px;height:48px;border:3px solid #000;background:var(--coin);box-shadow:var(--shadow);flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.menu-btn span{display:block;width:20px;height:3px;background:#000}
+/* Cat nav */
+.nav-cats{background:var(--underground);border-top:3px solid var(--mario-red);padding:8px clamp(16px,5vw,80px);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.nav-cats::-webkit-scrollbar{display:none}
+.nav-cat-btn{padding:8px 14px;border:3px solid #000;background:var(--coin);color:#000;box-shadow:var(--shadow);font-size:9px;text-transform:uppercase;transition:transform .12s,box-shadow .12s;flex-shrink:0}
+.nav-cat-btn:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+.nav-cat-btn.active{background:var(--mario-red);color:#fff}
+/* Mobile drawer */
+.mobile-drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);z-index:250;background:#000;border-left:3px solid var(--mario-red);padding:20px 16px;flex-direction:column;gap:8px;overflow-y:auto}
+.mobile-drawer.open{display:flex}
+.mobile-drawer a,.mobile-drawer button{padding:12px 14px;border:3px solid #000;background:var(--coin);color:#000;font-size:9px;text-transform:uppercase;text-align:left}
+.drawer-overlay{display:none;position:fixed;inset:0;z-index:240;background:rgba(0,0,0,.6)}
+.drawer-overlay.open{display:block}
+
+/* ══════════════════════════════════════
+   PÁGINAS SPA
+══════════════════════════════════════ */
+.page{display:none;min-height:60vh}
+.page.active{display:block}
+
+/* ── PAGE TRANSITION ── */
+#page-transition{position:fixed;inset:0;z-index:400;background:#000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+#page-transition.show{opacity:1;pointer-events:all}
+.transition-coin{width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg,#fff7c8,var(--coin),var(--coin-dark));border:3px solid #000;animation:spin-coin .6s linear infinite}
+@keyframes spin-coin{0%{transform:rotateY(0)}50%{transform:rotateY(90deg) scaleX(.1)}100%{transform:rotateY(180deg)}}
+
+/* ══════════════════════════════════════
+   HOME — HERO
+══════════════════════════════════════ */
+.hero-section{background:linear-gradient(180deg,#84b6ff,var(--sky));position:relative;overflow:hidden;padding:clamp(28px,5vw,56px) clamp(20px,5vw,80px) 0}
+.hero-clouds{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;position:relative;z-index:2;max-width:var(--max);margin:0 auto}
+.hero-copy h1{font-size:clamp(22px,3.2vw,46px);text-transform:uppercase;line-height:1.4;margin-bottom:18px}
+.hero-copy p{font-size:10px;line-height:2.2;margin-bottom:24px;opacity:.9}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hero-stat{padding:16px 14px;text-align:center}
+.hero-stat strong{display:block;font-size:14px;margin-top:8px}
+.hero-stat p{font-size:9px;margin-top:6px;opacity:.85}
+.hero-scene{position:relative;min-height:clamp(360px,48vw,600px);border:4px solid #000;background:linear-gradient(180deg,#88b8ff,#6ea3fe);box-shadow:var(--shadow-xl);overflow:hidden}
+.hero-scene .cloud{top:20px;width:100px;height:32px}
+.hero-scene .cloud.c2{top:56px;animation-duration:26s;animation-delay:-8s;width:80px}
+.scene-ground{position:absolute;bottom:0;left:0;right:0;height:72px;background:repeating-linear-gradient(90deg,transparent 0 58px,#000 58px 61px),repeating-linear-gradient(0deg,transparent 0 26px,#000 26px 29px),linear-gradient(180deg,var(--brick),var(--brick-dark));border-top:4px solid #000}
+.scene-hills{position:absolute;bottom:64px;left:0;right:0}
+.scene-hill{position:absolute;bottom:0;background:var(--pipe);border:3px solid #000;border-bottom:none;border-radius:100px 100px 0 0}
+.scene-hill.a{left:2%;width:150px;height:90px}
+.scene-hill.b{left:22%;width:200px;height:118px}
+.scene-hill.c{right:12%;width:170px;height:100px}
+.scene-pipe{position:absolute;right:28px;bottom:64px;width:100px;height:150px;background:linear-gradient(180deg,var(--pipe),var(--pipe-dark));border:4px solid #000}
+.scene-pipe::before{content:"";position:absolute;left:-12px;right:-12px;top:-24px;height:28px;background:linear-gradient(180deg,#74a94d,var(--pipe-dark));border:4px solid #000}
+.scene-qblocks{position:absolute;left:28px;bottom:136px;display:flex;gap:8px}
+.qblock{width:52px;height:52px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:inset -3px -3px 0 #c8820a,3px 3px 0 #000;display:grid;place-items:center;font-size:22px;color:#fff;text-shadow:2px 2px 0 #000}
+.scene-star{position:absolute;right:140px;top:40px;width:60px;height:60px;background:linear-gradient(180deg,#fff7b1,var(--coin),var(--coin-dark));clip-path:polygon(50% 0,63% 34%,100% 35%,72% 57%,82% 100%,50% 74%,18% 100%,28% 57%,0 35%,37% 34%);border:3px solid #000;animation:spin-star 4s linear infinite}
+@keyframes spin-star{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+/* ticker */
+.ticker{overflow:hidden;border-block:4px solid #000;background:var(--coin);padding:12px 0}
+.ticker-track{display:flex;gap:0;width:max-content;animation:ticker-move 22s linear infinite}
+@keyframes ticker-move{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:12px;padding:0 28px;font-size:9px;text-transform:uppercase;white-space:nowrap}
+.ticker-item::after{content:"✦";color:var(--mario-red);font-size:8px}
+
+/* ══════════════════════════════════════
+   HOME — VITRINE
+══════════════════════════════════════ */
+.vitrine-section{background:var(--sky);padding-block:clamp(60px,8vw,110px)}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.feat-card{position:relative;padding:20px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;min-height:320px;display:flex;flex-direction:column}
+.feat-card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg)}
+.feat-card.active{border-color:var(--mario-red);border-width:4px}
+.feat-card h3{font-size:14px;text-transform:uppercase;margin:14px 0 10px;line-height:1.5}
+.feat-card p{font-size:9px;line-height:2;flex:1}
+.feat-mock{height:clamp(100px,14vw,160px);margin-top:14px;border:3px solid #000;background:#fff;box-shadow:inset -3px -3px 0 rgba(0,0,0,.15)}
+.feat-mock.consoles{background:linear-gradient(135deg,#fff 0%,#d0e0ff 100%)}
+.feat-mock.retro{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.12) 18px 20px),linear-gradient(180deg,#ffd060,#e08040)}
+.feat-mock.acessorios{background:radial-gradient(circle at 30% 50%,var(--sky) 0 18%,transparent 19%),radial-gradient(circle at 70% 50%,var(--mario-red) 0 18%,transparent 19%),#fff}
+.feat-mock.tecnologia{background:linear-gradient(180deg,#fff,#d0f7ff)}
+.feat-mock.jogos{background:linear-gradient(180deg,var(--underground),#3a1060)}
+.feat-btn{margin-top:14px;width:100%;text-align:center}
+
+/* ── CATÁLOGO DINÂMICO ── */
+.catalog-section{background:var(--underground);color:#fff;padding-block:clamp(60px,8vw,110px)}
+.catalog-section .section-head h2{color:#fff}
+.catalog-section .section-head p{color:rgba(255,255,255,.75)}
+.catalog-shell{border:4px solid #000;background:rgba(0,0,0,.3);box-shadow:var(--shadow-xl);overflow:hidden}
+.catalog-top{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:3px solid #000}
+.catalog-copy{padding:clamp(20px,3vw,36px);border-right:3px solid #000}
+.catalog-copy h3{font-size:clamp(16px,2vw,28px);text-transform:uppercase;margin:12px 0 10px;color:#fff}
+.catalog-copy p{font-size:10px;line-height:2.1;color:rgba(255,255,255,.8)}
+.catalog-search-wrap{padding:clamp(16px,2vw,28px);display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05)}
+.catalog-search{flex:1;padding:10px 14px;border:3px solid #000;background:#fff;color:#000;font-size:9px;text-transform:uppercase}
+.catalog-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.catalog-tab{padding:8px 14px;border:3px solid #000;background:var(--coin);color:#000;font-size:9px;text-transform:uppercase;box-shadow:var(--shadow);transition:transform .12s}
+.catalog-tab:hover{transform:translate(-2px,-2px)}
+.catalog-tab.active{background:var(--mario-red);color:#fff}
+.catalog-body{padding:clamp(16px,3vw,32px)}
+.catalog-layout{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:var(--gap)}
+.catalog-feature-wrap{padding:clamp(16px,2vw,26px);border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow)}
+.catalog-feature-wrap h4{font-size:clamp(16px,2vw,24px);text-transform:uppercase;margin:12px 0 10px}
+.catalog-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.catalog-item-card{padding:16px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);display:flex;flex-direction:column}
+.catalog-item-card h4{font-size:11px;text-transform:uppercase;margin:10px 0 8px;line-height:1.6}
+.catalog-item-card p{font-size:9px;line-height:1.9;flex:1;opacity:.9}
+.catalog-price{font-size:18px;margin:12px 0 10px;display:block}
+.catalog-price small{display:block;font-size:8px;opacity:.7;text-decoration:line-through;margin-bottom:4px}
+.catalog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.catalog-actions .btn{flex:1;font-size:9px;min-height:42px}
+
+/* ══════════════════════════════════════
+   HOME — PROMOÇÕES
+══════════════════════════════════════ */
+.promos-section{background:var(--sky);padding-block:clamp(60px,8vw,110px)}
+.promos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.promo-card{padding:clamp(18px,2.5vw,30px);border:3px solid #000;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.promo-card.gold{background:linear-gradient(180deg,var(--coin),var(--coin-dark))}
+.promo-card.brick{background:linear-gradient(180deg,var(--brick),var(--brick-dark));color:#fff}
+.promo-visual{height:clamp(140px,18vw,220px);border:3px solid #000;margin-bottom:18px;background:#fff;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,5vw,52px);color:rgba(0,0,0,.1);font-family:"Press Start 2P",monospace}
+.promo-visual.ps5{background:linear-gradient(135deg,#fff,#d7e5ff);color:rgba(0,0,50,.15)}
+.promo-visual.xbox{background:linear-gradient(135deg,#b9ffd0,#6bc37e);color:rgba(0,50,0,.15)}
+.promo-visual.retro{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.1) 18px 20px),linear-gradient(180deg,#ffd060,#d07030);color:rgba(0,0,0,.15)}
+.promo-card h3{font-size:clamp(14px,2vw,22px);text-transform:uppercase;margin:10px 0 10px;line-height:1.5}
+.promo-card p{font-size:9px;line-height:2;flex:1;opacity:.9}
+.promo-card .catalog-price{font-size:22px;margin:14px 0 12px}
+.promo-card .btn{margin-top:auto;width:100%}
+
+/* ══════════════════════════════════════
+   HOME — SOBRE
+══════════════════════════════════════ */
+.about-section{background:var(--underground);color:#fff;padding-block:clamp(60px,8vw,110px)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.about-copy h2{font-size:clamp(20px,3vw,38px);text-transform:uppercase;line-height:1.4;margin:12px 0 16px;color:#fff}
+.about-copy p{font-size:10px;line-height:2.2;color:rgba(255,255,255,.8);margin-bottom:14px}
+.about-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.about-chip{padding:7px 14px;border:2px solid #000;background:rgba(255,255,255,.1);color:#fff;font-size:9px}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.about-card{padding:18px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow)}
+.about-card strong{display:block;font-size:12px;text-transform:uppercase;margin-top:10px}
+.about-card p{font-size:9px;line-height:1.9;margin-top:8px;opacity:.9;color:#000}
+
+/* ══════════════════════════════════════
+   HOME — AVALIAÇÕES
+══════════════════════════════════════ */
+.reviews-section{background:var(--sky);padding-block:clamp(60px,8vw,110px)}
+.reviews-layout{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:var(--gap)}
+.review-score-card{padding:clamp(24px,3vw,40px);border:4px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow-xl);text-align:center}
+.review-score-big{font-size:clamp(48px,8vw,96px);line-height:1;display:block;margin-top:16px}
+.mario-stars{display:flex;justify-content:center;gap:8px;margin:16px 0}
+.mario-star{width:26px;height:26px;background:linear-gradient(180deg,#fff7b1,var(--coin),var(--coin-dark));clip-path:polygon(50% 0,63% 34%,100% 35%,72% 57%,82% 100%,50% 74%,18% 100%,28% 57%,0 35%,37% 34%);border:2px solid #000}
+.review-score-card p{font-size:9px;line-height:2;opacity:.9}
+.reviews-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.review-card{padding:clamp(16px,2vw,26px);border:3px solid #000;background:linear-gradient(180deg,var(--brick),var(--brick-dark));color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+.review-meta{font-size:8px;opacity:.8;text-transform:uppercase}
+.review-card h4{font-size:12px;text-transform:uppercase;line-height:1.5}
+.review-card p{font-size:9px;line-height:2;opacity:.85;flex:1}
+
+/* ══════════════════════════════════════
+   HOME — CONTATO
+══════════════════════════════════════ */
+.contact-section{background:var(--underground);color:#fff;padding-block:clamp(60px,8vw,110px)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.contact-copy h2{font-size:clamp(20px,3vw,38px);text-transform:uppercase;line-height:1.4;margin:12px 0 16px;color:#fff}
+.contact-copy p{font-size:10px;line-height:2.2;color:rgba(255,255,255,.8);margin-bottom:20px}
+.contact-cards{display:grid;gap:10px;margin-bottom:24px}
+.contact-card{padding:14px 18px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);color:#000}
+.contact-card strong{display:block;font-size:12px;text-transform:uppercase;margin-bottom:4px}
+.contact-card span{font-size:9px;opacity:.85}
+.contact-actions{display:flex;flex-wrap:wrap;gap:10px}
+.map-wrap{border:4px solid #000;box-shadow:var(--shadow-xl);overflow:hidden}
+.map-wrap iframe{width:100%;min-height:400px;display:block}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:clamp(28px,5vw,60px) clamp(20px,5vw,80px) clamp(20px,3vw,32px)}
+.footer-game-over{font-size:clamp(24px,4vw,52px);text-transform:uppercase;color:var(--mario-red);margin-bottom:clamp(24px,4vw,48px);line-height:1.3;text-align:center}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(24px,4vw,56px);margin-bottom:clamp(24px,4vw,40px)}
+.footer-brand p{font-size:9px;line-height:2.2;color:rgba(255,255,255,.7);margin-top:14px}
+.footer-socials{display:flex;gap:10px;margin-top:18px}
+.social-btn{width:48px;height:48px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:10px;color:#000;transition:transform .12s}
+.social-btn:hover{transform:translate(-2px,-2px)}
+.footer-col h4{font-size:11px;text-transform:uppercase;margin-bottom:16px;color:var(--coin)}
+.footer-col ul{list-style:none;display:grid;gap:10px}
+.footer-col li,.footer-col a{font-size:9px;color:rgba(255,255,255,.7)}
+.footer-col a:hover{color:var(--coin)}
+.footer-bottom{padding-top:18px;border-top:2px solid var(--mario-red);font-size:9px;color:rgba(255,255,255,.5);text-align:center;line-height:2}
+
+/* ══════════════════════════════════════
+   PÁGINA DE CATEGORIA
+══════════════════════════════════════ */
+.cat-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#84b6ff,var(--sky));padding:clamp(40px,6vw,80px) clamp(20px,5vw,80px) 0}
+.cat-hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding-bottom:clamp(28px,4vw,52px);display:flex;align-items:center;gap:clamp(20px,3vw,40px)}
+.cat-icon{width:clamp(60px,8vw,100px);height:clamp(60px,8vw,100px);border:4px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow-xl);display:flex;align-items:center;justify-content:center;font-size:clamp(28px,4vw,48px);flex-shrink:0}
+.cat-hero-text h1{font-size:clamp(18px,3.5vw,44px);text-transform:uppercase;line-height:1.4}
+.cat-hero-text p{font-size:9px;color:rgba(0,0,0,.7);margin-top:8px;line-height:2}
+.cat-ground{height:clamp(28px,4vw,44px);background:repeating-linear-gradient(90deg,transparent 0 58px,#000 58px 61px),repeating-linear-gradient(0deg,transparent 0 26px,#000 26px 29px),linear-gradient(180deg,var(--brick),var(--brick-dark));border-top:3px solid #000;border-bottom:3px solid #000}
+.cat-controls{padding:clamp(20px,3vw,36px) clamp(20px,5vw,80px);background:var(--underground);border-bottom:3px solid #000;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.cat-search{flex:1;min-width:200px;padding:10px 14px;border:3px solid #000;background:#fff;color:#000;font-size:9px;text-transform:uppercase}
+.cat-sort{padding:10px 14px;border:3px solid #000;background:var(--coin);color:#000;font-size:9px;text-transform:uppercase;box-shadow:var(--shadow)}
+.cat-subcat-pills{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.subcat-pill{padding:6px 12px;border:2px solid #000;background:rgba(255,255,255,.15);color:#fff;font-size:8px;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.subcat-pill.active{background:var(--coin);color:#000;border-color:#000}
+.cat-toggle{display:flex;align-items:center;gap:10px;color:#fff;font-size:9px;cursor:pointer}
+.toggle-box{width:36px;height:20px;border:2px solid #000;background:rgba(255,255,255,.2);position:relative;transition:background .15s}
+.toggle-box.on{background:var(--pipe)}
+.toggle-box::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;background:#fff;border:2px solid #000;transition:left .15s}
+.toggle-box.on::after{left:18px}
+.cat-count{color:rgba(255,255,255,.7);font-size:9px;margin-left:auto}
+/* produto grid */
+.products-wrap{padding:clamp(28px,4vw,56px) clamp(20px,5vw,80px);background:var(--sky)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap)}
+.prod-card{border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);display:flex;flex-direction:column;cursor:pointer;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+.prod-card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-lg)}
+.prod-card.out-of-stock{opacity:.6}
+.prod-card.out-of-stock::after{content:"ESGOTADO";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);font-size:18px;color:var(--mario-red);border:3px solid var(--mario-red);padding:6px 14px;background:rgba(0,0,0,.7);z-index:5;pointer-events:none}
+.prod-badge-wrap{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 12px 0}
+.prod-stock-tag{font-size:8px;padding:3px 8px;border:2px solid #000;background:var(--mario-red);color:#fff;animation:blink .9s steps(1) infinite alternate}
+.prod-mock{height:clamp(160px,22vw,240px);border-top:3px solid #000;border-bottom:3px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(32px,6vw,64px);color:rgba(0,0,0,.1);font-family:"Press Start 2P",monospace;overflow:hidden;position:relative}
+.prod-mock.consoles{background:linear-gradient(135deg,#fff,#d0e0ff)}
+.prod-mock.retro{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.08) 18px 20px),linear-gradient(180deg,#ffd060,#e08040)}
+.prod-mock.acessorios{background:radial-gradient(circle at 30% 50%,var(--sky) 0 20%,transparent 21%),radial-gradient(circle at 70% 50%,var(--mario-red) 0 20%,transparent 21%),#fff}
+.prod-mock.tecnologia{background:linear-gradient(180deg,#fff,#d0f7ff)}
+.prod-mock.jogos{background:linear-gradient(180deg,var(--underground),#3a1060)}
+.prod-info{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}
+.prod-name{font-size:10px;text-transform:uppercase;line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-desc{font-size:8px;line-height:1.9;opacity:.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-price{font-size:16px;margin-top:4px}
+.prod-price small{display:block;font-size:8px;text-decoration:line-through;opacity:.65;margin-bottom:2px}
+.prod-btns{display:grid;grid-template-columns:1fr auto;gap:8px;padding:0 12px 12px;margin-top:auto}
+.prod-btns .btn{font-size:9px;min-height:40px}
+/* paginação */
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;padding:clamp(20px,3vw,40px) clamp(20px,5vw,80px);background:var(--sky);flex-wrap:wrap}
+.page-btn{padding:10px 14px;border:3px solid #000;background:var(--coin);color:#000;font-size:9px;box-shadow:var(--shadow);transition:transform .12s;min-width:44px}
+.page-btn:hover{transform:translate(-2px,-2px)}
+.page-btn.current{background:var(--mario-red);color:#fff}
+.page-btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+
+/* ══════════════════════════════════════
+   PÁGINA DE PRODUTO
+══════════════════════════════════════ */
+.product-page-wrap{padding:clamp(28px,4vw,56px) clamp(20px,5vw,80px);background:var(--sky);max-width:var(--max);margin:0 auto}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:clamp(20px,3vw,36px);flex-wrap:wrap}
+.breadcrumb span,.breadcrumb a{font-size:8px;text-transform:uppercase;color:rgba(0,0,0,.6)}
+.breadcrumb a:hover{color:#000}
+.breadcrumb .sep{color:var(--mario-red)}
+.product-layout{display:grid;grid-template-columns:45% 55%;gap:clamp(24px,4vw,52px);align-items:start}
+.product-image-col .prod-mock-big{height:clamp(280px,38vw,480px);border:4px solid #000;background:#fff;box-shadow:var(--shadow-xl);display:flex;align-items:center;justify-content:center;font-size:clamp(48px,10vw,96px);color:rgba(0,0,0,.08);font-family:"Press Start 2P",monospace}
+.product-image-col .prod-mock-big.consoles{background:linear-gradient(135deg,#fff,#d0e0ff)}
+.product-image-col .prod-mock-big.retro{background:linear-gradient(180deg,#ffd060,#e08040)}
+.product-image-col .prod-mock-big.acessorios{background:radial-gradient(circle at 30% 50%,var(--sky) 0 25%,transparent 26%),radial-gradient(circle at 70% 50%,var(--mario-red) 0 25%,transparent 26%),#fff}
+.product-image-col .prod-mock-big.tecnologia{background:linear-gradient(180deg,#fff,#d0f7ff)}
+.product-image-col .prod-mock-big.jogos{background:linear-gradient(180deg,var(--underground),#3a1060)}
+.product-info h1{font-size:clamp(16px,2.5vw,28px);text-transform:uppercase;line-height:1.5;margin:14px 0 12px}
+.product-rating{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.product-rating .mario-stars{margin:0}
+.product-rating span{font-size:9px;opacity:.7}
+.product-main-price{font-size:clamp(24px,4vw,42px);display:block;margin-bottom:6px}
+.product-old-price{font-size:12px;text-decoration:line-through;opacity:.6;display:block;margin-bottom:6px}
+.savings-badge{display:inline-block;padding:5px 12px;border:2px solid #000;background:var(--pipe);color:#fff;font-size:9px;margin-bottom:16px}
+.product-desc{font-size:9px;line-height:2.2;opacity:.9;margin-bottom:16px}
+.product-features{list-style:none;display:grid;gap:8px;margin-bottom:20px}
+.product-features li{font-size:9px;display:flex;align-items:center;gap:8px}
+.product-features li::before{content:"";width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,var(--coin) 60%,var(--coin-dark) 100%);border:2px solid #000;flex:0 0 auto}
+.product-stock{font-size:9px;padding:8px 14px;border:2px solid #000;display:inline-block;margin-bottom:18px}
+.product-stock.in{background:var(--pipe);color:#fff;border-color:#000}
+.product-stock.out{background:var(--mario-red);color:#fff;border-color:#000}
+.qty-control{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.qty-control label{font-size:9px;text-transform:uppercase}
+.qty-wrap{display:flex;align-items:center;border:3px solid #000;background:#fff;box-shadow:var(--shadow)}
+.qty-btn{width:40px;height:40px;border:none;border-right:3px solid #000;background:var(--coin);font-size:16px;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.qty-btn:last-child{border-right:none;border-left:3px solid #000}
+.qty-num{width:44px;text-align:center;font-size:13px;font-family:"Press Start 2P",monospace;background:transparent;border:none;color:#000}
+.product-action-btns{display:grid;gap:10px}
+.product-action-btns .btn{width:100%;justify-content:center}
+.related-section{margin-top:clamp(40px,6vw,80px)}
+.related-section h2{font-size:clamp(16px,2.5vw,28px);text-transform:uppercase;margin-bottom:clamp(16px,2vw,28px)}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+
+/* ══════════════════════════════════════
+   CARRINHO DRAWER
+══════════════════════════════════════ */
+#cart-overlay{display:none;position:fixed;inset:0;z-index:290;background:rgba(0,0,0,.65)}
+#cart-overlay.open{display:block}
+#cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);z-index:295;background:#000;border-left:4px solid var(--mario-red);transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column}
+#cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:3px solid var(--mario-red);background:#000;flex-shrink:0}
+.cart-header h2{font-size:14px;text-transform:uppercase;color:#fff}
+.cart-close{width:40px;height:40px;border:3px solid #000;background:var(--coin);box-shadow:var(--shadow);font-size:18px;color:#000;display:flex;align-items:center;justify-content:center}
+.cart-items{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.cart-item{display:flex;gap:12px;align-items:flex-start;padding:14px;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow)}
+.cart-item-mock{width:52px;height:52px;flex-shrink:0;border:2px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.cart-item-mock.consoles{background:linear-gradient(135deg,#fff,#d0e0ff)}
+.cart-item-mock.retro{background:linear-gradient(180deg,#ffd060,#e08040)}
+.cart-item-mock.acessorios{background:#fff}
+.cart-item-mock.tecnologia{background:linear-gradient(180deg,#fff,#d0f7ff)}
+.cart-item-mock.jogos{background:var(--underground)}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:9px;text-transform:uppercase;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cart-item-price{font-size:12px;margin-top:4px;display:block}
+.cart-item-qty{display:flex;align-items:center;gap:6px;margin-top:8px}
+.cart-qty-btn{width:28px;height:28px;border:2px solid #000;background:var(--mario-red);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cart-item-qty span{font-size:11px;min-width:22px;text-align:center}
+.cart-remove{width:28px;height:28px;border:2px solid #000;background:var(--brick);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cart-empty{text-align:center;padding:40px 20px;color:rgba(255,255,255,.5)}
+.cart-empty p{font-size:9px;line-height:2;margin-top:16px}
+.cart-footer{padding:16px 20px;border-top:3px solid var(--mario-red);flex-shrink:0;background:#000}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:#fff}
+.cart-subtotal span{font-size:10px;text-transform:uppercase}
+.cart-subtotal strong{font-size:16px;color:var(--coin)}
+.cart-footer-btns{display:grid;gap:10px}
+.cart-footer-btns .btn{width:100%;justify-content:center}
+
+/* ══════════════════════════════════════
+   CHECKOUT MODAL
+══════════════════════════════════════ */
+#checkout-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.8);align-items:center;justify-content:center;padding:20px}
+#checkout-overlay.open{display:flex}
+#checkout-modal{background:var(--sky);border:4px solid #000;box-shadow:var(--shadow-xl);width:100%;max-width:680px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.checkout-header{background:#000;color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.checkout-header h2{font-size:12px;text-transform:uppercase;line-height:1.5}
+.checkout-close{width:36px;height:36px;border:2px solid #000;background:var(--coin);color:#000;font-size:16px;display:flex;align-items:center;justify-content:center}
+.checkout-steps{display:flex;padding:16px 20px;border-bottom:3px solid #000;background:#fff;gap:8px}
+.checkout-step{flex:1;padding:10px 8px;border:3px solid #000;background:var(--coin);font-size:8px;text-transform:uppercase;text-align:center;box-shadow:var(--shadow)}
+.checkout-step.active{background:var(--mario-red);color:#fff;box-shadow:var(--shadow)}
+.checkout-step.done{background:var(--pipe);color:#fff}
+.checkout-body{padding:clamp(16px,3vw,28px);flex:1}
+.checkout-form-group{display:grid;gap:14px;margin-bottom:20px}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field label{font-size:9px;text-transform:uppercase;opacity:.8}
+.form-field input,.form-field select,.form-field textarea{padding:12px 14px;border:3px solid #000;background:#fff;font-size:10px;font-family:"Press Start 2P",monospace}
+.form-field input:focus,.form-field select:focus{outline:none;border-color:var(--mario-red)}
+.form-error{font-size:8px;color:var(--mario-red);padding:6px 10px;border:2px solid var(--mario-red);background:rgba(229,37,33,.1);display:none}
+.form-error.show{display:block}
+.radio-group{display:flex;gap:12px;flex-wrap:wrap}
+.radio-opt{display:flex;align-items:center;gap:8px;padding:10px 14px;border:3px solid #000;background:#fff;cursor:pointer;font-size:9px;text-transform:uppercase;transition:background .15s}
+.radio-opt.selected{background:var(--coin);box-shadow:var(--shadow)}
+/* payment cards */
+.payment-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:20px}
+.payment-card{padding:16px;border:3px solid #000;background:#fff;box-shadow:var(--shadow);cursor:pointer;text-align:center;transition:transform .12s,box-shadow .12s}
+.payment-card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+.payment-card.selected{background:var(--coin);border-width:4px;box-shadow:var(--shadow-lg)}
+.payment-card-icon{font-size:28px;margin-bottom:10px;display:block}
+.payment-card-title{font-size:9px;text-transform:uppercase;margin-bottom:8px;display:block}
+.payment-card-badge{display:inline-block;padding:3px 8px;border:2px solid #000;font-size:7px;text-transform:uppercase}
+.payment-card-badge.gold{background:var(--coin)}
+.payment-card-badge.green{background:var(--pipe);color:#fff}
+.payment-card-badge.gray{background:rgba(0,0,0,.15)}
+.payment-detail{padding:16px;border:3px solid #000;background:rgba(255,255,255,.7);margin-top:12px;display:none}
+.payment-detail.show{display:block}
+.pix-key-wrap{display:flex;align-items:center;gap:10px;margin:12px 0}
+.pix-key{flex:1;padding:10px 14px;border:3px solid #000;background:#fff;font-size:10px;font-family:"Press Start 2P",monospace}
+.copy-btn{padding:10px 14px;border:3px solid #000;background:var(--coin);font-size:9px;box-shadow:var(--shadow);text-transform:uppercase}
+.security-seals{font-size:8px;opacity:.65;margin-top:10px;line-height:2}
+/* etapa confirmação */
+.level-up{text-align:center;padding:clamp(20px,4vw,40px) 20px}
+.level-up h2{font-size:clamp(20px,3vw,36px);text-transform:uppercase;color:var(--mario-red);margin-bottom:16px;animation:bounce .6s ease infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.level-up p{font-size:9px;line-height:2.2;margin-bottom:12px;opacity:.9}
+.order-number{font-size:12px;padding:12px 20px;border:3px solid #000;background:var(--coin);box-shadow:var(--shadow);display:inline-block;margin:16px 0}
+.coins-rain{position:relative;height:80px;margin:20px 0;overflow:hidden}
+.rain-coin{position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,var(--coin) 60%,var(--coin-dark) 100%);border:2px solid #000;animation:rain-fall 1s ease-in forwards}
+@keyframes rain-fall{from{transform:translateY(-30px);opacity:1}to{transform:translateY(90px);opacity:0}}
+.checkout-footer{padding:16px 20px;border-top:3px solid #000;display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;background:#fff}
+.checkout-footer .btn{min-width:120px;justify-content:center}
+
+/* ══════════════════════════════════════
+   PAINEL ADMIN
+══════════════════════════════════════ */
+#admin-btn-trigger{position:fixed;left:18px;bottom:18px;z-index:180;width:46px;height:46px;border:3px solid #000;background:rgba(26,10,46,.9);color:var(--coin);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:16px}
+#admin-overlay{display:none;position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.88);align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px}
+#admin-overlay.open{display:flex}
+#admin-modal{width:100%;max-width:900px;background:var(--underground);border:4px solid #000;box-shadow:var(--shadow-xl);color:#fff;margin-top:10px}
+.admin-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:3px solid var(--mario-red)}
+.admin-header h2{font-size:14px;text-transform:uppercase;color:var(--coin)}
+.admin-close{width:36px;height:36px;border:2px solid #000;background:var(--coin);color:#000;font-size:16px;display:flex;align-items:center;justify-content:center}
+.admin-login{padding:clamp(20px,3vw,36px)}
+.admin-login p{font-size:9px;line-height:2;opacity:.8;margin-bottom:20px}
+.admin-login input{width:100%;padding:12px 14px;border:3px solid #000;background:#fff;color:#000;font-size:12px;font-family:"Press Start 2P",monospace;margin-bottom:14px}
+.admin-err{font-size:9px;color:var(--mario-red);display:none;margin-bottom:10px}
+.admin-err.show{display:block}
+.admin-body{display:none;padding:20px}
+.admin-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.admin-tab{padding:10px 16px;border:3px solid #000;background:rgba(255,255,255,.1);color:#fff;font-size:9px;text-transform:uppercase}
+.admin-tab.active{background:var(--coin);color:#000;box-shadow:var(--shadow)}
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.admin-stat{padding:14px;border:2px solid #000;background:rgba(255,255,255,.08);text-align:center}
+.admin-stat strong{display:block;font-size:24px;color:var(--coin);margin-bottom:4px}
+.admin-stat span{font-size:8px;opacity:.7;text-transform:uppercase}
+.stock-table{width:100%;border-collapse:collapse;font-size:9px}
+.stock-table th{text-align:left;padding:8px 10px;border-bottom:2px solid rgba(255,255,255,.2);font-size:8px;text-transform:uppercase;opacity:.7}
+.stock-table td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:middle}
+.stock-table tr:hover td{background:rgba(255,255,255,.05)}
+.s-badge{display:inline-block;padding:2px 8px;border:2px solid #000;font-size:8px}
+.s-ok{background:var(--pipe);color:#fff}
+.s-low{background:var(--coin);color:#000}
+.s-out{background:var(--mario-red);color:#fff}
+.qty-ctrl{display:flex;align-items:center;gap:6px}
+.qty-ctrl button{width:26px;height:26px;border:2px solid #000;background:rgba(255,255,255,.15);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center}
+.admin-form{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.15);padding:16px;margin-top:16px}
+.admin-form h4{font-size:11px;text-transform:uppercase;margin-bottom:14px;color:var(--coin)}
+.admin-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.admin-field{display:flex;flex-direction:column;gap:5px}
+.admin-field label{font-size:8px;text-transform:uppercase;opacity:.7}
+.admin-field input,.admin-field select{padding:9px 12px;border:2px solid #000;background:#fff;color:#000;font-size:9px;font-family:"Press Start 2P",monospace}
+.admin-save-bar{display:flex;align-items:center;gap:10px;margin-top:14px}
+.save-ok{font-size:9px;color:var(--pipe);display:none}
+.save-ok.show{display:inline}
+.payment-steps{display:grid;gap:10px;margin-bottom:20px}
+.payment-step-item{display:flex;gap:12px;align-items:flex-start}
+.step-num-block{width:36px;height:36px;flex-shrink:0;border:3px solid #000;background:linear-gradient(180deg,var(--coin),var(--coin-dark));box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:11px}
+.step-text{font-size:9px;line-height:2;color:rgba(255,255,255,.85);padding-top:6px}
+.orders-list{display:grid;gap:10px}
+.order-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
+.order-info{flex:1;min-width:0}
+.order-name{font-size:10px;text-transform:uppercase}
+.order-detail{font-size:8px;opacity:.65;margin-top:4px}
+.order-status-badge{font-size:8px;padding:3px 8px;border:2px solid #000}
+.o-new{background:var(--sky);color:#000}
+.o-sep{background:var(--coin);color:#000}
+.o-ready{background:var(--pipe);color:#fff}
+.o-done{background:rgba(255,255,255,.2);color:#fff}
+.prod-edit-input{background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.3);color:#fff;font:inherit;font-size:9px;width:80px;text-align:center;outline:none;padding:2px 4px}
+.prod-edit-input:focus{border-bottom-color:var(--coin)}
+
+/* ══════════════════════════════════════
+   WA FLOAT
+══════════════════════════════════════ */
+#wa-float{position:fixed;right:18px;bottom:18px;z-index:170;display:inline-flex;align-items:center;gap:10px;padding:0 18px;height:54px;border:3px solid #000;background:#25d366;color:#fff;box-shadow:var(--shadow-lg);font-size:10px;text-transform:uppercase}
+#wa-float svg{width:20px;height:20px}
+
+/* ══════════════════════════════════════
+   REVEAL
+══════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1100px){
+  .hero-grid,.about-grid,.contact-layout,.reviews-layout,.product-layout{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}
+  .promos-grid{grid-template-columns:repeat(2,1fr)}
+  .related-grid{grid-template-columns:repeat(2,1fr)}
+  .payment-cards{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-right>.btn{display:none}
+  .menu-btn{display:flex}
+  .feature-grid,.promos-grid,.related-grid{grid-template-columns:1fr}
+  .catalog-top{grid-template-columns:1fr}
+  .catalog-layout{grid-template-columns:1fr}
+  .catalog-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .about-cards{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .admin-form-grid{grid-template-columns:1fr}
+  .admin-stats{grid-template-columns:repeat(2,1fr)}
+  #wa-float span{display:none}
+  #wa-float{width:54px;padding:0;justify-content:center}
+  .hero-stats{grid-template-columns:1fr}
+  .checkout-steps{gap:4px}
+  .checkout-step{padding:8px 4px;font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <div class="intro-bg-hills">
+    <div class="intro-hill h1"></div>
+    <div class="intro-hill h2"></div>
+    <div class="intro-hill h3"></div>
+  </div>
+  <div class="intro-ground"></div>
+  <div class="intro-pipe-right"></div>
+  <div class="mario-runner"><div class="mario-px"></div></div>
+  <div class="intro-card">
+    <div class="intro-world">WORLD 1-1</div>
+    <div class="intro-lives">
+      <div class="intro-mushroom"></div>
+      <span>× 3</span>
+    </div>
+    <div class="intro-press">
+      <button class="btn btn-primary" id="intro-skip">PRESS START</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header id="main-header">
+  <div class="nav-top">
+    <div class="hud-logo">
+      <div class="hud-box">MARIO<strong>START</strong></div>
+      <div class="hud-box">COINS<strong id="hud-coins">00</strong></div>
+      <div class="hud-box">WORLD<strong>1-1</strong></div>
+    </div>
+    <nav class="nav-links">
+      <a href="#" onclick="navigate('home');return false">Home</a>
+      <a href="#" onclick="navigate('category/consoles');return false">Consoles</a>
+      <a href="#" onclick="navigate('category/retro');return false">Retro</a>
+      <a href="#" onclick="navigate('category/acessorios');return false">Acessórios</a>
+      <a href="#" onclick="navigate('category/tecnologia');return false">Tecnologia</a>
+      <a href="#" onclick="navigate('category/jogos');return false">Jogos</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" id="cart-btn" title="Carrinho">
+        🛒<span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-cats">
+    <button class="nav-cat-btn" data-cat="consoles" onclick="navigate('category/consoles')">🎮 Consoles</button>
+    <button class="nav-cat-btn" data-cat="retro" onclick="navigate('category/retro')">👾 Retro</button>
+    <button class="nav-cat-btn" data-cat="acessorios" onclick="navigate('category/acessorios')">🎧 Acessórios</button>
+    <button class="nav-cat-btn" data-cat="tecnologia" onclick="navigate('category/tecnologia')">💻 Tecnologia</button>
+    <button class="nav-cat-btn" data-cat="jogos" onclick="navigate('category/jogos')">🕹️ Jogos</button>
+  </div>
+</header>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<nav class="mobile-drawer" id="mobile-drawer">
+  <a href="#" onclick="navigate('home');closeMobileMenu();return false">🏠 Home</a>
+  <a href="#" onclick="navigate('category/consoles');closeMobileMenu();return false">🎮 Consoles</a>
+  <a href="#" onclick="navigate('category/retro');closeMobileMenu();return false">👾 Retro</a>
+  <a href="#" onclick="navigate('category/acessorios');closeMobileMenu();return false">🎧 Acessórios</a>
+  <a href="#" onclick="navigate('category/tecnologia');closeMobileMenu();return false">💻 Tecnologia</a>
+  <a href="#" onclick="navigate('category/jogos');closeMobileMenu();return false">🕹️ Jogos</a>
+  <button class="btn btn-secondary" onclick="openCart();closeMobileMenu()">🛒 Carrinho</button>
+</nav>
+
+<!-- ══ PAGE TRANSITION ══ -->
+<div id="page-transition"><div class="transition-coin"></div></div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main id="main-content">
+
+<!-- ════════════════════
+     PAGE: HOME
+════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero-section">
+    <div class="hero-clouds">
+      <div class="cloud" style="top:30px;width:110px;height:34px;animation-duration:18s"></div>
+      <div class="cloud" style="top:70px;width:90px;height:28px;animation-duration:24s;animation-delay:-7s"></div>
+      <div class="cloud" style="top:20px;width:130px;height:38px;animation-duration:30s;animation-delay:-14s"></div>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">World Start · Resende RJ</div>
+        <h1>O universo gamer começa aqui</h1>
+        <p>Consoles, acessórios, retro e tecnologia em Resende - RJ. Compra, venda, troca e assistência técnica com atendimento direto no WhatsApp.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="navigate('category/consoles')">Ver produtos</button>
+          <a class="btn btn-secondary" href="https://wa.me/5524998840803?text=Olá! Vim pelo site e quero saber mais." target="_blank">WhatsApp</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat card-coin reveal"><div class="eyebrow">Avaliação</div><strong>5,0 ⭐</strong><p>19+ avaliações no Google</p></div>
+          <div class="hero-stat card-coin reveal"><div class="eyebrow">Produtos</div><strong>60+</strong><p>Itens disponíveis</p></div>
+          <div class="hero-stat card-coin reveal"><div class="eyebrow">Atendimento</div><strong>Rápido</strong><p>Resposta em minutos</p></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-scene">
+          <div class="cloud c1" style="top:24px;width:100px;height:32px"></div>
+          <div class="cloud c2" style="top:60px;width:80px;height:26px;animation-duration:26s;animation-delay:-9s"></div>
+          <div class="scene-star"></div>
+          <div class="scene-qblocks"><div class="qblock">?</div><div class="qblock">?</div><div class="qblock">?</div></div>
+          <div class="scene-pipe"></div>
+          <div class="scene-hills">
+            <div class="scene-hill a"></div>
+            <div class="scene-hill b"></div>
+            <div class="scene-hill c"></div>
+          </div>
+          <div class="scene-ground"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">PS5 a partir de R$ 3.199</span>
+      <span class="ticker-item">Compra · Venda · Troca</span>
+      <span class="ticker-item">Assistência técnica</span>
+      <span class="ticker-item">Retro gaming</span>
+      <span class="ticker-item">60+ produtos</span>
+      <span class="ticker-item">Resende · RJ</span>
+      <span class="ticker-item">WhatsApp direto</span>
+      <span class="ticker-item">PS5 a partir de R$ 3.199</span>
+      <span class="ticker-item">Compra · Venda · Troca</span>
+      <span class="ticker-item">Assistência técnica</span>
+      <span class="ticker-item">Retro gaming</span>
+      <span class="ticker-item">60+ produtos</span>
+      <span class="ticker-item">Resende · RJ</span>
+      <span class="ticker-item">WhatsApp direto</span>
+    </div>
+  </div>
+
+  <!-- VITRINE -->
+  <section class="vitrine-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Blocos ?</div>
+        <h2>Escolha sua fase</h2>
+        <p>Cinco categorias de produtos, cada uma com sua identidade. Clique para explorar.</p>
+      </div>
+      <div class="feature-grid">
+        <button class="feat-card reveal" onclick="navigate('category/consoles')">
+          <div class="tag">Consoles</div>
+          <h3>PS5, Xbox e mais</h3>
+          <p>Geração atual e seminovos com preço justo.</p>
+          <div class="feat-mock consoles"></div>
+        </button>
+        <button class="feat-card reveal" onclick="navigate('category/retro')">
+          <div class="tag">Retro</div>
+          <h3>Clássicos e nostalgia</h3>
+          <p>Mega Drive, SNES, Game Boy e colecionáveis.</p>
+          <div class="feat-mock retro"></div>
+        </button>
+        <button class="feat-card reveal" onclick="navigate('category/acessorios')">
+          <div class="tag">Acessórios</div>
+          <h3>Controles e audio</h3>
+          <p>Power-ups para o seu setup.</p>
+          <div class="feat-mock acessorios"></div>
+        </button>
+        <button class="feat-card reveal" onclick="navigate('category/tecnologia')">
+          <div class="tag">Tecnologia</div>
+          <h3>Monitores e upgrades</h3>
+          <p>Tech gamer para o próximo nível.</p>
+          <div class="feat-mock tecnologia"></div>
+        </button>
+      </div>
+    </div>
+    <div class="brick-strip bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- CATÁLOGO DINÂMICO -->
+  <section class="catalog-section">
+    <div class="brick-strip top" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" style="background:var(--mario-red);color:#fff">Catálogo</div>
+        <h2 style="color:#fff">Produtos em destaque</h2>
+      </div>
+      <div class="catalog-shell reveal">
+        <div class="catalog-top">
+          <div class="catalog-copy">
+            <div class="eyebrow">Seleção atual</div>
+            <h3 id="home-cat-title">Consoles em destaque</h3>
+            <p id="home-cat-desc">PS5, Xbox e híbridos para quem quer entrar na geração atual.</p>
+            <div class="catalog-tabs">
+              <button class="catalog-tab active" data-tab="consoles">Consoles</button>
+              <button class="catalog-tab" data-tab="retro">Retro</button>
+              <button class="catalog-tab" data-tab="acessorios">Acessórios</button>
+              <button class="catalog-tab" data-tab="tecnologia">Tecnologia</button>
+              <button class="catalog-tab" data-tab="jogos">Jogos</button>
+            </div>
+          </div>
+          <div class="catalog-search-wrap">
+            <input class="catalog-search" id="home-search" type="text" placeholder="BUSCAR PRODUTO..." oninput="debouncedHomeSearch(this.value)">
+          </div>
+        </div>
+        <div class="catalog-body">
+          <div class="catalog-layout">
+            <div id="home-feature"></div>
+            <div class="catalog-grid" id="home-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brick-strip bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- PROMOÇÕES -->
+  <section class="promos-section">
+    <div class="brick-strip top" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Ofertas</div>
+        <h2>Power-ups da vez</h2>
+        <p>Produtos selecionados com melhores preços. Consulte disponibilidade no WhatsApp.</p>
+      </div>
+      <div class="promos-grid">
+        <article class="promo-card gold reveal">
+          <div class="promo-visual ps5">PS5</div>
+          <div class="tag red">Oferta principal</div>
+          <h3>PlayStation 5 Slim</h3>
+          <p>Nova geração, SSD ultrarrápido e DualSense com feedback háptico. O protagonista da vitrine.</p>
+          <span class="catalog-price"><small>De R$ 3.799,00</small>R$ 3.199,00</span>
+          <button class="btn btn-secondary" onclick="addToCart('prod_001')">+ Carrinho</button>
+        </article>
+        <article class="promo-card brick reveal">
+          <div class="promo-visual xbox">XBOX</div>
+          <div class="tag" style="background:var(--pipe);color:#fff">Popular</div>
+          <h3>Xbox Series S</h3>
+          <p>Compacto, rápido e ótima entrada para a geração atual. Game Pass incluso disponível.</p>
+          <span class="catalog-price"><small>Consulte</small>R$ 1.899,00</span>
+          <button class="btn btn-primary" onclick="addToCart('prod_004')">+ Carrinho</button>
+        </article>
+        <article class="promo-card gold reveal">
+          <div class="promo-visual retro">RETRO</div>
+          <div class="tag">Retro</div>
+          <h3>Clássicos em destaque</h3>
+          <p>Mega Drive, SNES e Game Boy revisados. Coleção e nostalgia com curadoria especial.</p>
+          <span class="catalog-price"><small>A partir de</small>R$ 280,00</span>
+          <button class="btn btn-secondary" onclick="navigate('category/retro')">Ver retro</button>
+        </article>
+      </div>
+    </div>
+    <div class="brick-strip bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="about-section">
+    <div class="brick-strip top" aria-hidden="true"></div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <div class="eyebrow" style="background:var(--mario-red);color:#fff">Sobre a loja</div>
+          <h2>Start Games e Tecnologia</h2>
+          <p>Somos a loja especializada em videogames de Resende - RJ. Um espaço criado por quem ama games, para quem ama games.</p>
+          <p>Aqui você encontra desde lançamentos até os clássicos que marcaram sua infância — com atendimento direto, honesto e sem enrolação.</p>
+          <div class="about-chips">
+            <span class="about-chip">Ambiente acolhedor</span>
+            <span class="about-chip">Comunidade inclusiva</span>
+            <span class="about-chip">Preço justo</span>
+            <span class="about-chip">Nostalgia gamer</span>
+          </div>
+        </div>
+        <div class="about-cards reveal">
+          <div class="about-card"><div class="tag">01</div><strong>Compra na loja</strong><p>Veja de perto, experimente e saia jogando no mesmo dia.</p></div>
+          <div class="about-card"><div class="tag">02</div><strong>Retirada rápida</strong><p>Reservou pelo WhatsApp, passou e levou em minutos.</p></div>
+          <div class="about-card"><div class="tag">03</div><strong>Entrega disponível</strong><p>Consulte para envio na região de Resende e arredores.</p></div>
+          <div class="about-card"><div class="tag">04</div><strong>Atendimento honesto</strong><p>Indicação certa para cada necessidade, sem empurrar produto.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="brick-strip bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- AVALIAÇÕES -->
+  <section class="reviews-section">
+    <div class="brick-strip top" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Clientes</div>
+        <h2>O que falam da loja</h2>
+      </div>
+      <div class="reviews-layout">
+        <div class="review-score-card reveal">
+          <div class="eyebrow">Google Reviews</div>
+          <span class="review-score-big">5,0</span>
+          <div class="mario-stars">
+            <div class="mario-star"></div><div class="mario-star"></div><div class="mario-star"></div><div class="mario-star"></div><div class="mario-star"></div>
+          </div>
+          <p>Baseado em 19 avaliações. Atendimento excelente, nostalgia real e ambiente que deixa saudade.</p>
+        </div>
+        <div class="reviews-grid">
+          <article class="review-card reveal"><span class="review-meta">Google Reviews</span><h4>Atendimento excelente</h4><p>"Rápido, educado e com preço acessível. Já virei cliente fixo!"</p></article>
+          <article class="review-card reveal"><span class="review-meta">Google Reviews</span><h4>Nostalgia real</h4><p>"Loja traz muita nostalgia dos games antigos. Achei um Mega Drive revisado incrível."</p></article>
+          <article class="review-card reveal"><span class="review-meta">Google Reviews</span><h4>Equipe prestativa</h4><p>"Equipe muito atenciosa. Me ajudaram a escolher o console certo para o meu filho."</p></article>
+          <article class="review-card reveal"><span class="review-meta">Google Reviews</span><h4>Melhor da região</h4><p>"Melhor loja de games de Resende, sem discussão. Sempre tem o que eu preciso."</p></article>
+        </div>
+      </div>
+    </div>
+    <div class="brick-strip bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contact-section">
+    <div class="brick-strip top" aria-hidden="true"></div>
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-copy reveal">
+          <div class="eyebrow" style="background:var(--mario-red);color:#fff">Contato</div>
+          <h2>Vem jogar com a gente</h2>
+          <p>Atendimento rápido pelo WhatsApp ou venha pessoalmente. Estamos no centro de Resende esperando por você.</p>
+          <div class="contact-cards">
+            <div class="contact-card"><strong>(24) 99884-0803</strong><span>WhatsApp · Canal principal</span></div>
+            <div class="contact-card"><strong>Rua Henrique Sivori, 11</strong><span>Campos Elíseos · Resende · RJ</span></div>
+            <div class="contact-card"><strong>Seg–Sex 10h–19h · Sáb 10h–17h</strong><span>Domingo fechado</span></div>
+            <div class="contact-card"><strong>@startgames.resende</strong><span>Instagram · Novidades e promoções</span></div>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-secondary" href="https://wa.me/5524998840803?text=Olá!+Vim+pelo+site." target="_blank">WhatsApp</a>
+            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=R.+Henrique+Sivori,+11,+Campos+Eliseos,+Resende+-+RJ" target="_blank">Como chegar</a>
+            <a class="btn btn-ghost" href="https://instagram.com/startgames.resende" target="_blank">Instagram</a>
+          </div>
+        </div>
+        <div class="map-wrap reveal">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.3083820066804!2d-44.4527277!3d-22.4629911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bf6ee7f8cf07f%3A0x4c64e8035cda08c8!2sR.%20Henrique%20Sivori%2C%2011%20-%20Campos%20El%C3%ADseos%2C%20Resende%20-%20RJ%2C%2027500-000!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr" loading="lazy" title="Mapa da Start Games"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-home -->
+
+<!-- ════════════════════
+     PAGE: CATEGORIA
+════════════════════ -->
+<div class="page" id="page-category">
+  <div class="cat-hero">
+    <div class="hero-clouds">
+      <div class="cloud" style="top:24px;width:100px;height:32px;animation-duration:20s"></div>
+      <div class="cloud" style="top:52px;width:80px;height:26px;animation-duration:28s;animation-delay:-8s"></div>
+    </div>
+    <div class="cat-hero-inner">
+      <div class="cat-icon" id="cat-icon">🎮</div>
+      <div class="cat-hero-text">
+        <div class="eyebrow" id="cat-eyebrow">Categoria</div>
+        <h1 id="cat-title">Consoles</h1>
+        <p id="cat-subtitle">Produtos desta categoria</p>
+      </div>
+    </div>
+  </div>
+  <div class="cat-ground"></div>
+  <div class="cat-controls">
+    <input class="cat-search" id="cat-search" type="text" placeholder="BUSCAR PRODUTO...">
+    <select class="cat-sort" id="cat-sort">
+      <option value="relevance">Mais relevante</option>
+      <option value="price-asc">Menor preço</option>
+      <option value="price-desc">Maior preço</option>
+      <option value="name">Nome A-Z</option>
+    </select>
+    <div class="cat-subcat-pills" id="cat-subcat-pills"></div>
+    <label class="cat-toggle">
+      <span>Apenas em estoque</span>
+      <div class="toggle-box" id="stock-toggle" onclick="toggleStock()"></div>
+    </label>
+    <span class="cat-count" id="cat-count">0 produtos</span>
+  </div>
+  <div class="products-wrap">
+    <div class="products-grid" id="cat-products-grid"></div>
+  </div>
+  <div class="pagination" id="cat-pagination"></div>
+</div><!-- /page-category -->
+
+<!-- ════════════════════
+     PAGE: PRODUTO
+════════════════════ -->
+<div class="page" id="page-product">
+  <div class="products-wrap" style="background:var(--sky)">
+    <div class="product-page-wrap">
+      <div class="breadcrumb" id="product-breadcrumb"></div>
+      <div class="product-layout">
+        <div class="product-image-col">
+          <div class="prod-mock-big" id="product-mock-big">🎮</div>
+        </div>
+        <div class="product-info-col" id="product-info-col"></div>
+      </div>
+      <div class="related-section">
+        <div class="eyebrow">Você também vai gostar</div>
+        <h2>Produtos relacionados</h2>
+        <div class="related-grid" id="related-grid"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-product -->
+
+</main><!-- /main -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-game-over">GAME OVER</div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="eyebrow">Start Games</div>
+      <p>Loja especializada em videogames, tecnologia e produtos gamers em Resende · RJ. Compra, venda, troca e assistência técnica.</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="https://wa.me/5524998840803" target="_blank" aria-label="WhatsApp">WA</a>
+        <a class="social-btn" href="https://instagram.com/startgames.resende" target="_blank" aria-label="Instagram">IG</a>
+        <a class="social-btn" href="https://www.google.com/maps/dir/?api=1&destination=R.+Henrique+Sivori,+11" target="_blank" aria-label="Mapa">MAP</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#" onclick="navigate('home');return false">Home</a></li>
+        <li><a href="#" onclick="navigate('category/consoles');return false">Consoles</a></li>
+        <li><a href="#" onclick="navigate('category/retro');return false">Retro</a></li>
+        <li><a href="#" onclick="navigate('category/acessorios');return false">Acessórios</a></li>
+        <li><a href="#" onclick="navigate('category/tecnologia');return false">Tecnologia</a></li>
+        <li><a href="#" onclick="navigate('category/jogos');return false">Jogos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li>(24) 99884-0803</li>
+        <li>R. Henrique Sivori, 11</li>
+        <li>Campos Elíseos · Resende · RJ</li>
+        <li>Seg–Sex 10h–19h</li>
+        <li>Sáb 10h–17h · Dom fechado</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="yr"></span> Start Games e Tecnologia · Todos os direitos reservados · Feito para quem ama games</div>
+</footer>
+
+<!-- ══ WA FLOAT ══ -->
+<a id="wa-float" href="https://wa.me/5524998840803?text=Olá!+Vim+pelo+site." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2C6.59 2 2.16 6.42 2.16 11.88c0 1.74.46 3.43 1.32 4.92L2 22l5.35-1.4a9.9 9.9 0 0 0 4.67 1.19h.01c5.44 0 9.87-4.42 9.87-9.88a9.8 9.8 0 0 0-2.85-7Zm-7.02 15.2h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.18.83.85-3.1-.2-.32a8.14 8.14 0 0 1-1.25-4.33c0-4.48 3.67-8.13 8.2-8.13 2.18 0 4.23.84 5.77 2.37a8.06 8.06 0 0 1 2.39 5.77c0 4.49-3.67 8.13-8.09 8.13Zm4.46-6.08c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.23-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.63-1.18-1.4-1.32-1.64-.14-.24-.01-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.39-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.31.98 2.47c.12.16 1.68 2.56 4.06 3.59.57.25 1.02.4 1.37.52.58.18 1.1.15 1.51.09.46-.07 1.43-.58 1.63-1.13.2-.55.2-1.02.14-1.12-.05-.09-.2-.15-.44-.27Z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<!-- ══ CARRINHO ══ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <div class="cart-header">
+    <h2>Meu carrinho</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <strong id="cart-total">R$ 0,00</strong>
+    </div>
+    <div class="cart-footer-btns">
+      <button class="btn btn-secondary" onclick="openCheckout()">Finalizar pedido</button>
+      <button class="btn btn-ghost" onclick="closeCart()">Continuar comprando</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKOUT ══ -->
+<div id="checkout-overlay">
+  <div id="checkout-modal">
+    <div class="checkout-header">
+      <h2>Finalizar pedido · World Shop</h2>
+      <button class="checkout-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="checkout-steps">
+      <div class="checkout-step active" id="step-1">1. Dados</div>
+      <div class="checkout-step" id="step-2">2. Pagamento</div>
+      <div class="checkout-step" id="step-3">3. Confirmação</div>
+    </div>
+    <div class="checkout-body" id="checkout-body"></div>
+    <div class="checkout-footer" id="checkout-footer"></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<button id="admin-btn-trigger" onclick="openAdmin()" title="Painel Admin">⚙</button>
+<div id="admin-overlay">
+  <div id="admin-modal">
+    <div class="admin-header">
+      <h2>⚙ Painel Admin</h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div id="admin-login-wrap" class="admin-login">
+      <p>Área restrita ao proprietário. Digite a senha para acessar.</p>
+      <input type="password" id="admin-pwd" placeholder="••••••••">
+      <p class="admin-err" id="admin-err">Senha incorreta.</p>
+      <button class="btn btn-secondary" onclick="doAdminLogin()" style="width:100%">Entrar</button>
+      <p style="font-size:8px;opacity:.6;margin-top:12px;text-align:center">Senha padrão: startgames2025</p>
+    </div>
+    <div id="admin-body" class="admin-body">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-apanel="estoque" onclick="switchAdminPanel('estoque')">Estoque</button>
+        <button class="admin-tab" data-apanel="pagamentos" onclick="switchAdminPanel('pagamentos')">Pagamentos</button>
+        <button class="admin-tab" data-apanel="pedidos" onclick="switchAdminPanel('pedidos')">Pedidos</button>
+        <button class="admin-tab" data-apanel="config" onclick="switchAdminPanel('config')">Config</button>
+      </div>
+
+      <!-- ESTOQUE -->
+      <div class="admin-panel active" id="apanel-estoque">
+        <div class="admin-stats">
+          <div class="admin-stat"><strong id="ast-total">0</strong><span>Produtos</span></div>
+          <div class="admin-stat"><strong id="ast-low" style="color:var(--coin)">0</strong><span>Estoque baixo</span></div>
+          <div class="admin-stat"><strong id="ast-out" style="color:var(--mario-red)">0</strong><span>Sem estoque</span></div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="stock-table">
+            <thead><tr><th>Produto</th><th>Cat.</th><th>Preço</th><th>Qtd.</th><th>Status</th></tr></thead>
+            <tbody id="stock-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAGAMENTOS -->
+      <div class="admin-panel" id="apanel-pagamentos">
+        <div class="payment-steps">
+          <div class="payment-step-item"><div class="step-num-block">1</div><div class="step-text">Acesse mercadopago.com.br e faça login na sua conta.</div></div>
+          <div class="payment-step-item"><div class="step-num-block">2</div><div class="step-text">Vá em Cobranças → Link de pagamento → Criar link.</div></div>
+          <div class="payment-step-item"><div class="step-num-block">3</div><div class="step-text">Crie um link com valor livre — o cliente escolhe o valor ao pagar.</div></div>
+          <div class="payment-step-item"><div class="step-num-block">4</div><div class="step-text">Cole o link gerado (formato: https://mpago.la/XXXXXX) abaixo.</div></div>
+        </div>
+        <div class="admin-form">
+          <h4>Configuração de pagamento</h4>
+          <div class="admin-field" style="margin-bottom:12px">
+            <label>Link Mercado Pago (Checkout Pro)</label>
+            <input type="text" id="cfg-mp-link" placeholder="https://mpago.la/XXXXXX">
+          </div>
+          <div class="admin-field" style="margin-bottom:12px">
+            <label>Chave PIX da loja</label>
+            <input type="text" id="cfg-pix" placeholder="24998840803">
+          </div>
+          <div class="admin-save-bar">
+            <button class="btn btn-primary btn-sm" onclick="savePaymentConfig()">Salvar</button>
+            <span class="save-ok" id="pay-save-ok">✓ Salvo!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PEDIDOS -->
+      <div class="admin-panel" id="apanel-pedidos">
+        <p style="font-size:9px;opacity:.7;margin-bottom:16px;line-height:2">Pedidos recebidos via checkout do site.</p>
+        <div class="orders-list" id="orders-list"></div>
+      </div>
+
+      <!-- CONFIG -->
+      <div class="admin-panel" id="apanel-config">
+        <div class="admin-form">
+          <h4>Configurações da loja</h4>
+          <div class="admin-form-grid">
+            <div class="admin-field"><label>WhatsApp (com DDI)</label><input type="text" id="cfg-wa" placeholder="5524998840803"></div>
+            <div class="admin-field"><label>Horário</label><input type="text" id="cfg-horario" placeholder="Seg–Sex 10h–19h"></div>
+          </div>
+          <div class="admin-field" style="margin-top:10px"><label>Nova senha (mín. 6 chars)</label><input type="password" id="cfg-pwd" placeholder="••••••••"></div>
+          <div class="admin-save-bar">
+            <button class="btn btn-primary btn-sm" onclick="saveConfig()">Salvar</button>
+            <span class="save-ok" id="cfg-save-ok">✓ Salvo!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   BANCO DE DADOS — 60 PRODUTOS
+══════════════════════════════════════════════ */
+const PRODUCTS = [
+  // CONSOLES (12)
+  {id:"prod_001",name:"PlayStation 5 Slim",category:"consoles",subcategory:"sony",price:3199,price_old:3799,desc:"Console de nova geração com SSD ultrarrápido, ray tracing em tempo real e controle DualSense com feedback háptico avançado.",features:["SSD 825GB","4K 120fps","Ray Tracing","DualSense Haptic"],badge:"Destaque",badge_color:"red",stock:3,featured:true,emoji:"🎮"},
+  {id:"prod_002",name:"PlayStation 5 Digital",category:"consoles",subcategory:"sony",price:2999,price_old:3499,desc:"PS5 sem leitor de disco, mais compacto e com acesso completo à PlayStation Store.",features:["SSD 825GB","4K 120fps","Sem leitor","PS Store"],badge:"Novo",badge_color:"green",stock:2,featured:false,emoji:"🎮"},
+  {id:"prod_003",name:"PS4 Pro Seminovo",category:"consoles",subcategory:"sony",price:1299,price_old:1599,desc:"PlayStation 4 Pro seminovo revisado, 1TB de armazenamento, suporte a 4K HDR.",features:["1TB HDD","4K HDR","2 controles","Fios inclusos"],badge:"Oferta",badge_color:"red",stock:4,featured:false,emoji:"🕹️"},
+  {id:"prod_004",name:"Xbox Series S",category:"consoles",subcategory:"microsoft",price:1899,price_old:2299,desc:"O menor Xbox já feito, com SSD NVMe e performance de nova geração a um preço acessível.",features:["SSD 512GB","120fps","Game Pass","4K Upscaling"],badge:"Popular",badge_color:"green",stock:5,featured:true,emoji:"🎮"},
+  {id:"prod_005",name:"Xbox Series X",category:"consoles",subcategory:"microsoft",price:3499,price_old:3999,desc:"O Xbox mais poderoso de todos os tempos. 4K nativo, SSD ultrarrápido e retrocompatibilidade total.",features:["SSD 1TB","4K 120fps","Game Pass","Ray Tracing"],badge:"Premium",badge_color:"red",stock:2,featured:false,emoji:"🎮"},
+  {id:"prod_006",name:"Xbox One S Seminovo",category:"consoles",subcategory:"microsoft",price:899,price_old:1099,desc:"Xbox One S seminovo em excelente estado. Ótima entrada no ecossistema Xbox.",features:["500GB","4K Upscaling","Bluetooth","Game Pass compat."],badge:"Usado",badge_color:"",stock:3,featured:false,emoji:"🕹️"},
+  {id:"prod_007",name:"Nintendo Switch OLED",category:"consoles",subcategory:"nintendo",price:2299,price_old:2599,desc:"Nintendo Switch com tela OLED de 7 polegadas, branca e com som aprimorado.",features:["Tela OLED 7\"","64GB interno","Base melhorada","LAN port"],badge:"Destaque",badge_color:"red",stock:3,featured:true,emoji:"🎮"},
+  {id:"prod_008",name:"Nintendo Switch Lite",category:"consoles",subcategory:"nintendo",price:1399,price_old:1699,desc:"Versão portátil do Switch, compacta e ideal para jogar em qualquer lugar.",features:["Portátil","32GB interno","Tela 5.5\"","Controles fixos"],badge:"Portátil",badge_color:"",stock:4,featured:false,emoji:"🎮"},
+  {id:"prod_009",name:"Nintendo Switch V2",category:"consoles",subcategory:"nintendo",price:1799,price_old:2199,desc:"Nintendo Switch segunda geração com bateria melhorada e maior duração.",features:["Bateria 9h","32GB interno","TV e portátil","Joy-Con inclusos"],badge:"Clássico",badge_color:"",stock:2,featured:false,emoji:"🎮"},
+  {id:"prod_010",name:"Steam Deck OLED",category:"consoles",subcategory:"outros",price:3899,price_old:4299,desc:"PC gamer portátil da Valve com tela OLED HDR. Jogue seus jogos do Steam em qualquer lugar.",features:["OLED HDR","AMD Zen 2","512GB NVMe","SteamOS"],badge:"Tech",badge_color:"blue",stock:1,featured:false,emoji:"💻"},
+  {id:"prod_011",name:"Atari VCS",category:"consoles",subcategory:"outros",price:1499,price_old:null,desc:"Console retrô moderno da Atari com Linux e suporte a jogos clássicos e novos.",features:["Linux","AMD Ryzen","4K","Joystick clássico"],badge:"Retrô+",badge_color:"",stock:2,featured:false,emoji:"🕹️"},
+  {id:"prod_012",name:"Analogue Pocket",category:"consoles",subcategory:"outros",price:1199,price_old:null,desc:"Handheld FPGA que roda cartuchos originais de Game Boy, GBC, GBA e muito mais.",features:["FPGA","Tela 3.5\" IPS","Game Boy compat.","GB, GBC, GBA"],badge:"Colecionador",badge_color:"",stock:1,featured:false,emoji:"🎮"},
+  // RETRO (12)
+  {id:"prod_013",name:"Mega Drive Original Revisado",category:"retro",subcategory:"sega",price:480,price_old:580,desc:"Mega Drive original revisado e testado, com todos os circuitos funcionando perfeitamente.",features:["Revisado","2 controles","Cartucho incluso","Cabos AV"],badge:"Retro",badge_color:"",stock:3,featured:true,emoji:"👾"},
+  {id:"prod_014",name:"Super Nintendo Revisado",category:"retro",subcategory:"nintendo",price:520,price_old:620,desc:"Super Nintendo revisado, limpado e testado. Ícone dos anos 90 funcionando como novo.",features:["Revisado","2 controles","Cartucho incluso","Cabos originais"],badge:"Retro",badge_color:"",stock:2,featured:false,emoji:"👾"},
+  {id:"prod_015",name:"Nintendo 64 Revisado",category:"retro",subcategory:"nintendo",price:680,price_old:800,desc:"Nintendo 64 revisado com controle original e cabos. O console do Mario 64 e Zelda OoT.",features:["Revisado","1 controle","Cabos AV","Cartucho incluso"],badge:"Retro",badge_color:"",stock:2,featured:false,emoji:"👾"},
+  {id:"prod_016",name:"Game Boy Advance SP",category:"retro",subcategory:"nintendo",price:380,price_old:460,desc:"Game Boy Advance SP com tela retroiluminada. Ótimo estado, carregador original incluso.",features:["Tela iluminada","Carregador","Capa protetora","Ótimo estado"],badge:"Portátil",badge_color:"",stock:4,featured:false,emoji:"🎮"},
+  {id:"prod_017",name:"Game Boy Color",category:"retro",subcategory:"nintendo",price:280,price_old:340,desc:"Game Boy Color revisado, tela limpa e botões responsivos. Colecionável.",features:["Revisado","Tampa bateria","Tela limpa","Colecionável"],badge:"Clássico",badge_color:"",stock:3,featured:false,emoji:"🎮"},
+  {id:"prod_018",name:"PlayStation 1 Revisado",category:"retro",subcategory:"sony",price:320,price_old:400,desc:"PlayStation 1 revisado e funcionando. Nostalgia pura com jogos clássicos.",features:["Revisado","2 controles","Memory card","Cabos AV"],badge:"Retro",badge_color:"",stock:2,featured:false,emoji:"👾"},
+  {id:"prod_019",name:"Sega Saturn",category:"retro",subcategory:"sega",price:890,price_old:null,desc:"Sega Saturn em excelente estado. Console raro e colecionável.",features:["Revisado","1 controle","Cabos originais","Colecionável"],badge:"Raro",badge_color:"red",stock:1,featured:false,emoji:"👾"},
+  {id:"prod_020",name:"Neo Geo Mini",category:"retro",subcategory:"outros",price:420,price_old:520,desc:"Neo Geo Mini com 40 jogos clássicos da SNK. Tela integrada e controles.",features:["40 jogos","Tela 3.5\"","2 joysticks","HDMI"],badge:"Mini",badge_color:"",stock:2,featured:false,emoji:"🕹️"},
+  {id:"prod_021",name:"Evercade VS",category:"retro",subcategory:"outros",price:390,price_old:null,desc:"Console retrô moderno que roda cartuchos Evercade com compilações de clássicos.",features:["Cartuchos físicos","HDMI","2 controles","Wi-Fi"],badge:"Moderno",badge_color:"green",stock:3,featured:false,emoji:"🕹️"},
+  {id:"prod_022",name:"Miyoo Mini Plus",category:"retro",subcategory:"outros",price:280,price_old:340,desc:"Handheld retrô que emula centenas de consoles clássicos. Pequeno, poderoso.",features:["3.5\" IPS","Bateria 3000mAh","Emulação","MicroSD incluso"],badge:"Emulador",badge_color:"",stock:5,featured:false,emoji:"🎮"},
+  {id:"prod_023",name:"Anbernic RG35XX H",category:"retro",subcategory:"outros",price:320,price_old:null,desc:"Handheld retrô horizontal no estilo Game Boy Advance com tela IPS brilhante.",features:["IPS 3.5\"","Bateria 3200mAh","Linux","MicroSD 64GB"],badge:"Novo",badge_color:"green",stock:4,featured:false,emoji:"🎮"},
+  {id:"prod_024",name:"Cartucho Pokémon Red Original",category:"retro",subcategory:"nintendo",price:180,price_old:null,desc:"Cartucho original de Pokémon Red para Game Boy. Salvo e funcionando.",features:["Original","Game Boy","Salvo","Colecionável"],badge:"Colecionador",badge_color:"",stock:1,featured:false,emoji:"👾"},
+  // ACESSÓRIOS (12)
+  {id:"prod_025",name:"DualSense PS5 Branco",category:"acessorios",subcategory:"sony",price:499,price_old:599,desc:"Controle oficial DualSense branco para PS5 com feedback háptico e gatilhos adaptativos.",features:["Feedback háptico","Gatilhos adaptativos","USB-C","Microfone"],badge:"Original",badge_color:"",stock:5,featured:true,emoji:"🎧"},
+  {id:"prod_026",name:"DualSense PS5 Preto",category:"acessorios",subcategory:"sony",price:499,price_old:599,desc:"Controle oficial DualSense na cor Midnight Black para PS5.",features:["Feedback háptico","Gatilhos adaptativos","USB-C","Edição preta"],badge:"Original",badge_color:"",stock:4,featured:false,emoji:"🎧"},
+  {id:"prod_027",name:"Controle Xbox Series sem fio",category:"acessorios",subcategory:"microsoft",price:399,price_old:489,desc:"Controle oficial Xbox Series para PC e console. Texturizado e com botão share.",features:["Sem fio","USB-C","PC compatível","Botão Share"],badge:"Original",badge_color:"",stock:6,featured:false,emoji:"🎧"},
+  {id:"prod_028",name:"8BitDo SN30 Pro+",category:"acessorios",subcategory:"outros",price:299,price_old:360,desc:"Controle retrô moderno compatível com Switch, PC, Android e iOS. Excelente qualidade.",features:["Multi-plataforma","Bluetooth","USB","Recarregável"],badge:"Popular",badge_color:"green",stock:4,featured:false,emoji:"🎧"},
+  {id:"prod_029",name:"Headset HyperX Cloud II",category:"acessorios",subcategory:"audio",price:359,price_old:449,desc:"Headset premium com drivers de 53mm, som surround virtual 7.1 e microfone removível.",features:["53mm drivers","7.1 surround","Microfone removível","Multi-plataforma"],badge:"Top",badge_color:"red",stock:3,featured:false,emoji:"🎧"},
+  {id:"prod_030",name:"Headset SteelSeries Arctis Nova 3",category:"acessorios",subcategory:"audio",price:289,price_old:349,desc:"Headset gamer leve com drivers customizados e microfone de cancelamento de ruído.",features:["Drivers customizados","Cancelamento de ruído","USB","PC/Mac"],badge:"Novo",badge_color:"green",stock:4,featured:false,emoji:"🎧"},
+  {id:"prod_031",name:"Headset Sony Pulse 3D",category:"acessorios",subcategory:"audio",price:469,price_old:549,desc:"Headset sem fio oficial PlayStation com áudio 3D Tempest para PS5.",features:["Sem fio","Áudio 3D","PS5 otimizado","USB-C"],badge:"Original",badge_color:"",stock:2,featured:false,emoji:"🎧"},
+  {id:"prod_032",name:"Suporte para controles — duplo",category:"acessorios",subcategory:"setup",price:89,price_old:null,desc:"Suporte de mesa para dois controles. Design elegante com carregamento USB.",features:["2 controles","Carregamento USB","Acrílico","Universal"],badge:"Setup",badge_color:"",stock:8,featured:false,emoji:"🎮"},
+  {id:"prod_033",name:"Cabo HDMI 2.1 — 2 metros",category:"acessorios",subcategory:"setup",price:69,price_old:null,desc:"Cabo HDMI 2.1 certificado para 4K 120Hz e 8K 60Hz com suporte a VRR.",features:["HDMI 2.1","4K 120Hz","8K 60Hz","VRR"],badge:"Tech",badge_color:"blue",stock:10,featured:false,emoji:"🔌"},
+  {id:"prod_034",name:"Base carregadora PS5",category:"acessorios",subcategory:"sony",price:149,price_old:189,desc:"Base oficial Sony para carregamento de dois controles DualSense simultaneamente.",features:["2 controles","LED indicador","USB-C","Original Sony"],badge:"Original",badge_color:"",stock:4,featured:false,emoji:"🔌"},
+  {id:"prod_035",name:"Cabo USB-C carga rápida 3m",category:"acessorios",subcategory:"setup",price:39,price_old:null,desc:"Cabo USB-C trançado com carga rápida de 65W para controles e dispositivos.",features:["65W carga rápida","Trançado","3 metros","Universal"],badge:"Essencial",badge_color:"",stock:15,featured:false,emoji:"🔌"},
+  {id:"prod_036",name:"Grip Switch OLED antiderrapante",category:"acessorios",subcategory:"nintendo",price:59,price_old:null,desc:"Grip ergonômico com antiderrapante para Nintendo Switch OLED. Conforto nas longas sessões.",features:["Switch OLED","Antiderrapante","Ergonômico","Proteção"],badge:"Switch",badge_color:"",stock:6,featured:false,emoji:"🎮"},
+  // TECNOLOGIA (12)
+  {id:"prod_037",name:"Monitor gamer 27\" 144Hz",category:"tecnologia",subcategory:"monitor",price:1299,price_old:1599,desc:"Monitor gamer IPS de 27 polegadas, 144Hz, 1ms e suporte a FreeSync e G-Sync.",features:["IPS 27\"","144Hz","1ms","FreeSync/GSync"],badge:"Top",badge_color:"red",stock:2,featured:true,emoji:"🖥️"},
+  {id:"prod_038",name:"Monitor 24\" 165Hz",category:"tecnologia",subcategory:"monitor",price:899,price_old:1099,desc:"Monitor gamer de 24 polegadas com painel IPS, 165Hz e Full HD para competitivo.",features:["IPS 24\"","165Hz","Full HD","1ms"],badge:"Competitivo",badge_color:"",stock:3,featured:false,emoji:"🖥️"},
+  {id:"prod_039",name:"Webcam Logitech C920",category:"tecnologia",subcategory:"perifericos",price:349,price_old:429,desc:"Webcam Full HD 1080p com autofoco e correção de luz automática para streams e reuniões.",features:["1080p 30fps","Autofoco","USB","Microfone duplo"],badge:"Streamer",badge_color:"green",stock:4,featured:false,emoji:"📷"},
+  {id:"prod_040",name:"SSD Externo 1TB USB-C",category:"tecnologia",subcategory:"armazenamento",price:389,price_old:469,desc:"SSD externo portátil de 1TB com velocidade de leitura de até 1050 MB/s via USB-C.",features:["1TB","1050 MB/s","USB-C","Bolso de bolso"],badge:"Rápido",badge_color:"",stock:5,featured:false,emoji:"💾"},
+  {id:"prod_041",name:"SSD NVMe interno 1TB",category:"tecnologia",subcategory:"armazenamento",price:329,price_old:399,desc:"SSD NVMe M.2 de 1TB, perfeito para upgrade de PS5 ou PC. Velocidades extremas.",features:["1TB M.2","7000 MB/s","NVMe Gen4","Heatsink incluso"],badge:"Upgrade",badge_color:"blue",stock:4,featured:false,emoji:"💾"},
+  {id:"prod_042",name:"Memória RAM DDR5 16GB",category:"tecnologia",subcategory:"perifericos",price:249,price_old:299,desc:"Kit de memória DDR5 4800MHz de 16GB para upgrade de PC gamer.",features:["DDR5 16GB","4800MHz","Low latency","Garantia 2 anos"],badge:"Upgrade",badge_color:"blue",stock:3,featured:false,emoji:"💻"},
+  {id:"prod_043",name:"Placa de captura Elgato HD60 X",category:"tecnologia",subcategory:"streaming",price:749,price_old:899,desc:"Placa de captura externa 4K60 com passthrough HDR para streaming e gravação.",features:["4K60 HDR","USB 3.0","OBS compatível","Multi-plataforma"],badge:"Streamer",badge_color:"green",stock:2,featured:false,emoji:"📺"},
+  {id:"prod_044",name:"Teclado mecânico TKL gamer",category:"tecnologia",subcategory:"perifericos",price:249,price_old:299,desc:"Teclado mecânico TKL (sem numpad) com switches blue e iluminação RGB.",features:["Switch Blue","RGB","TKL","Anti-ghosting"],badge:"Gamer",badge_color:"",stock:5,featured:false,emoji:"⌨️"},
+  {id:"prod_045",name:"Mouse gamer 16000 DPI",category:"tecnologia",subcategory:"perifericos",price:149,price_old:189,desc:"Mouse gamer óptico de alta precisão com sensor de 16000 DPI e 7 botões programáveis.",features:["16000 DPI","7 botões","RGB","Sensor óptico"],badge:"Gamer",badge_color:"",stock:7,featured:false,emoji:"🖱️"},
+  {id:"prod_046",name:"Mouse pad XL 90x40cm",category:"tecnologia",subcategory:"perifericos",price:79,price_old:null,desc:"Mouse pad extra grande com superfície de tecido e base antiderrapante de borracha.",features:["90x40cm","Tecido premium","Base borracha","Costura reforçada"],badge:"Setup",badge_color:"",stock:8,featured:false,emoji:"🖱️"},
+  {id:"prod_047",name:"Hub USB-C 7 portas",category:"tecnologia",subcategory:"perifericos",price:129,price_old:159,desc:"Hub USB-C com 7 portas incluindo USB-A, USB-C, HDMI, SD card e ethernet.",features:["7 portas","HDMI 4K","SD card","Ethernet"],badge:"Tech",badge_color:"blue",stock:4,featured:false,emoji:"🔌"},
+  {id:"prod_048",name:"Cadeira gamer reclinável",category:"tecnologia",subcategory:"setup",price:899,price_old:1099,desc:"Cadeira gamer com apoio lombar, reclinável até 165°, almofadas e rodas de nylon.",features:["165° reclinável","Apoio lombar","Almofadas","Rodas nylon"],badge:"Conforto",badge_color:"",stock:2,featured:false,emoji:"🪑"},
+  // JOGOS (12)
+  {id:"prod_049",name:"God of War Ragnarök — PS5",category:"jogos",subcategory:"playstation",price:299,price_old:349,desc:"A épica continuação de God of War. Kratos e Atreus enfrentam o Ragnarök nórdico.",features:["PS5","Single player","40h+ gameplay","PT-BR completo"],badge:"AAA",badge_color:"red",stock:5,featured:true,emoji:"🕹️"},
+  {id:"prod_050",name:"Marvel's Spider-Man 2 — PS5",category:"jogos",subcategory:"playstation",price:329,price_old:379,desc:"Jogue como Peter Parker e Miles Morales em uma Nova York ainda maior e mais detalhada.",features:["PS5","Open world","Dois Homens-Aranha","PT-BR"],badge:"AAA",badge_color:"red",stock:4,featured:false,emoji:"🕹️"},
+  {id:"prod_051",name:"Zelda: Tears of the Kingdom — Switch",category:"jogos",subcategory:"nintendo",price:299,price_old:349,desc:"A sequência de Breath of the Wild expande Hyrule para os céus e as profundezas.",features:["Switch","Open world","100h+ gameplay","PT-BR"],badge:"Exclusivo",badge_color:"",stock:6,featured:false,emoji:"🕹️"},
+  {id:"prod_052",name:"Mario Kart 8 Deluxe — Switch",category:"jogos",subcategory:"nintendo",price:249,price_old:299,desc:"O jogo de corrida mais completo do Nintendo Switch com 96 pistas e multijogador local.",features:["Switch","4 jogadores","96 pistas","PT-BR"],badge:"Família",badge_color:"green",stock:7,featured:false,emoji:"🕹️"},
+  {id:"prod_053",name:"Elden Ring — Xbox/PS",category:"jogos",subcategory:"multiplataforma",price:249,price_old:299,desc:"O RPG de ação aclamado por crítica e público. Mundo aberto vasto criado com George R.R. Martin.",features:["Xbox/PS5","Souls-like","Multiplataforma","Difícil"],badge:"GOTY",badge_color:"red",stock:5,featured:false,emoji:"🕹️"},
+  {id:"prod_054",name:"Hogwarts Legacy — PS4/PS5",category:"jogos",subcategory:"playstation",price:199,price_old:249,desc:"Explore Hogwarts no século XIX em um RPG de ação aberto no universo de Harry Potter.",features:["PS4/PS5","Open world","RPG","PT-BR"],badge:"Bestseller",badge_color:"",stock:6,featured:false,emoji:"🕹️"},
+  {id:"prod_055",name:"EA Sports FC 25 — PS5",category:"jogos",subcategory:"playstation",price:249,price_old:299,desc:"O jogo de futebol da EA com licenças oficiais, modo Ultimate Team e carreira.",features:["PS5","Online","Ultimate Team","PT-BR"],badge:"Futebol",badge_color:"",stock:8,featured:false,emoji:"⚽"},
+  {id:"prod_056",name:"Minecraft — Nintendo Switch",category:"jogos",subcategory:"nintendo",price:179,price_old:199,desc:"A versão completa de Minecraft para Switch com Marketplace e modos online e local.",features:["Switch","Sandbox","Multiplayer","Marketplace"],badge:"Clássico",badge_color:"",stock:6,featured:false,emoji:"🕹️"},
+  {id:"prod_057",name:"Among Us — Nintendo Switch",category:"jogos",subcategory:"nintendo",price:89,price_old:null,desc:"O fenômeno social do impostores em uma versão completa para Nintendo Switch.",features:["Switch","Multiplayer","Online","15 jogadores"],badge:"Social",badge_color:"",stock:4,featured:false,emoji:"🕹️"},
+  {id:"prod_058",name:"Sonic Frontiers — PS4",category:"jogos",subcategory:"playstation",price:149,price_old:199,desc:"Sonic em seu primeiro jogo open zone. Velocidade e exploração num mundo misterioso.",features:["PS4","Open zone","Boss battles","PT-BR"],badge:"Sonic",badge_color:"",stock:5,featured:false,emoji:"💨"},
+  {id:"prod_059",name:"Metroid Dread — Switch",category:"jogos",subcategory:"nintendo",price:249,price_old:299,desc:"Samus enfrenta os EMMI em uma das melhores aventuras Metroidvania já feitas.",features:["Switch","Metroidvania","Exclusivo","PT-BR"],badge:"Exclusivo",badge_color:"",stock:3,featured:false,emoji:"🕹️"},
+  {id:"prod_060",name:"Street Fighter 6 — PS5",category:"jogos",subcategory:"playstation",price:249,price_old:299,desc:"O fighting game do ano com modo World Tour, controles modernos e online robusto.",features:["PS5","Fighting","Online","Modo história"],badge:"Luta",badge_color:"",stock:4,featured:false,emoji:"👊"}
+];
+
+/* ══════════════════════════════════════════════
+   CATEGORIAS
+══════════════════════════════════════════════ */
+const CATS = {
+  consoles:{label:"Consoles",icon:"🎮",desc:"12 produtos · PS5, Xbox, Nintendo e mais"},
+  retro:{label:"Retro",icon:"👾",desc:"12 produtos · Clássicos e colecionáveis"},
+  acessorios:{label:"Acessórios",icon:"🎧",desc:"12 produtos · Controles, headsets e setup"},
+  tecnologia:{label:"Tecnologia",icon:"💻",desc:"12 produtos · Monitores, SSD e periféricos"},
+  jogos:{label:"Jogos",icon:"🕹️",desc:"12 produtos · PS5, Switch, Xbox e mais"}
+};
+
+const CAT_DESCS = {
+  consoles:"PS5, Xbox Series, Nintendo Switch e mais. Novos e seminovos com garantia.",
+  retro:"Mega Drive, Super Nintendo, Game Boy e colecionáveis revisados com cuidado.",
+  acessorios:"Controles, headsets, cabos e acessórios para elevar seu setup.",
+  tecnologia:"Monitores, SSDs, teclados, mouses e tudo para o PC e console gamer.",
+  jogos:"Títulos para PS5, Xbox, Switch e mais. Originais com garantia."
+};
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+let currentPage = 'home';
+let currentCat = 'consoles';
+let catPage = 1;
+const PER_PAGE = 20;
+let catFilter = {search:'', sort:'relevance', subcat:'all', stockOnly:false};
+let homeTab = 'consoles';
+let cart = [];
+let checkoutStep = 1;
+let checkoutData = {};
+let selectedPayment = '';
+let adminLogged = false;
+
+const WA = '5524998840803';
+const ADMIN_KEY = 'sg_admin_pwd';
+const CART_KEY = 'sg_cart_v2';
+const PAY_KEY = 'sg_pay_cfg';
+const ORDERS_KEY = 'sg_orders_v2';
+const CFG_KEY = 'sg_config';
+
+const getPwd = () => localStorage.getItem(ADMIN_KEY) || 'startgames2025';
+const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
+const saveCartLS = () => localStorage.setItem(CART_KEY, JSON.stringify(cart));
+const getPayCfg = () => { try { return JSON.parse(localStorage.getItem(PAY_KEY)) || {}; } catch { return {}; } };
+const getOrders = () => { try { return JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch { return []; } };
+const saveOrders = d => localStorage.setItem(ORDERS_KEY, JSON.stringify(d));
+const getCfg = () => { try { return JSON.parse(localStorage.getItem(CFG_KEY)) || {}; } catch { return {}; } };
+
+function getProductById(id) { return PRODUCTS.find(p => p.id === id); }
+
+function filterProducts(cat, search, sort, subcat, stockOnly) {
+  let arr = PRODUCTS.filter(p => p.category === cat);
+  if (stockOnly) arr = arr.filter(p => p.stock > 0);
+  if (subcat && subcat !== 'all') arr = arr.filter(p => p.subcategory === subcat);
+  if (search) {
+    const q = search.toLowerCase();
+    arr = arr.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+  }
+  if (sort === 'price-asc') arr.sort((a,b) => a.price - b.price);
+  else if (sort === 'price-desc') arr.sort((a,b) => b.price - a.price);
+  else if (sort === 'name') arr.sort((a,b) => a.name.localeCompare(b.name));
+  return arr;
+}
+
+function paginate(arr, page, perPage) {
+  const start = (page - 1) * perPage;
+  return arr.slice(start, start + perPage);
+}
+
+function fmt(n) { return 'R$ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
+function mockClass(cat) {
+  const map = {consoles:'consoles',retro:'retro',acessorios:'acessorios',tecnologia:'tecnologia',jogos:'jogos'};
+  return map[cat] || 'consoles';
+}
+
+/* ══════════════════════════════════════════════
+   NAVEGAÇÃO SPA
+══════════════════════════════════════════════ */
+function navigate(route, pushState = true) {
+  const trans = document.getElementById('page-transition');
+  trans.classList.add('show');
+  setTimeout(() => {
+    doNavigate(route);
+    trans.classList.remove('show');
+    window.scrollTo(0, 0);
+  }, 280);
+  if (pushState) history.pushState({route}, '', '#' + route);
+}
+
+function doNavigate(route) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-cat-btn').forEach(b => b.classList.remove('active'));
+
+  if (route === 'home' || route === '') {
+    document.getElementById('page-home').classList.add('active');
+    renderHomeTab(homeTab);
+  } else if (route.startsWith('category/')) {
+    const cat = route.replace('category/', '');
+    currentCat = cat;
+    catPage = 1;
+    catFilter = {search:'', sort:'relevance', subcat:'all', stockOnly:false};
+    document.getElementById('page-category').classList.add('active');
+    document.querySelector(`.nav-cat-btn[data-cat="${cat}"]`)?.classList.add('active');
+    renderCategoryPage(cat);
+  } else if (route.startsWith('product/')) {
+    const id = route.replace('product/', '');
+    document.getElementById('page-product').classList.add('active');
+    renderProductPage(id);
+  }
+}
+
+window.addEventListener('popstate', e => {
+  const route = (e.state?.route) || location.hash.replace('#', '') || 'home';
+  doNavigate(route);
+});
+
+/* ══════════════════════════════════════════════
+   HOME — catálogo dinâmico
+══════════════════════════════════════════════ */
+function renderHomeTab(tab) {
+  homeTab = tab;
+  document.querySelectorAll('.catalog-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  const prods = PRODUCTS.filter(p => p.category === tab);
+  const feat = prods.find(p => p.featured) || prods[0];
+  const items = prods.filter(p => p.id !== feat.id).slice(0, 4);
+
+  document.getElementById('home-cat-title').textContent = CATS[tab]?.label + ' em destaque' || tab;
+  document.getElementById('home-cat-desc').textContent = CAT_DESCS[tab] || '';
+
+  document.getElementById('home-feature').innerHTML = feat ? `
+    <div class="catalog-feature-wrap">
+      <div class="tag ${feat.badge_color === 'red' ? 'red' : feat.badge_color === 'green' ? 'green' : ''}">${feat.badge}</div>
+      <h4>${feat.name}</h4>
+      <p style="font-size:9px;line-height:2;margin:8px 0">${feat.desc}</p>
+      <span class="catalog-price">${feat.price_old ? `<small>${fmt(feat.price_old)}</small>` : ''}${fmt(feat.price)}</span>
+      <div class="catalog-actions">
+        <button class="btn btn-secondary" onclick="addToCart('${feat.id}')">+ Carrinho</button>
+        <a class="btn btn-ghost" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Tenho interesse em: ' + feat.name)}" target="_blank">WhatsApp</a>
+      </div>
+    </div>` : '';
+
+  document.getElementById('home-grid').innerHTML = items.map(item => `
+    <div class="catalog-item-card">
+      <div class="tag ${item.badge_color === 'red' ? 'red' : item.badge_color === 'green' ? 'green' : ''}">${item.badge}</div>
+      <h4>${item.name}</h4>
+      <p>${item.desc.substring(0,80)}...</p>
+      <span class="catalog-price">${item.price_old ? `<small>${fmt(item.price_old)}</small>` : ''}${fmt(item.price)}</span>
+      <div class="catalog-actions">
+        <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}')">+ Carrinho</button>
+        <button class="btn btn-ghost btn-sm" onclick="navigate('product/${item.id}')">Ver</button>
+      </div>
+    </div>`).join('');
+}
+
+document.querySelectorAll('.catalog-tab').forEach(tab => {
+  tab.addEventListener('click', () => renderHomeTab(tab.dataset.tab));
+});
+
+let homeSearchTimer;
+function debouncedHomeSearch(val) {
+  clearTimeout(homeSearchTimer);
+  homeSearchTimer = setTimeout(() => {
+    const prods = PRODUCTS.filter(p => p.category === homeTab && p.name.toLowerCase().includes(val.toLowerCase()));
+    if (!val) { renderHomeTab(homeTab); return; }
+    const items = prods.slice(0, 4);
+    document.getElementById('home-grid').innerHTML = items.length ? items.map(item => `
+      <div class="catalog-item-card">
+        <div class="tag">${item.badge}</div>
+        <h4>${item.name}</h4>
+        <p>${item.desc.substring(0,80)}...</p>
+        <span class="catalog-price">${fmt(item.price)}</span>
+        <div class="catalog-actions">
+          <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}')">+ Carrinho</button>
+          <button class="btn btn-ghost btn-sm" onclick="navigate('product/${item.id}')">Ver</button>
+        </div>
+      </div>`).join('') : '<p style="font-size:9px;grid-column:1/-1;text-align:center;padding:20px;opacity:.7">GAME OVER — Nenhum produto encontrado</p>';
+  }, 280);
+}
+
+/* ══════════════════════════════════════════════
+   PÁGINA DE CATEGORIA
+══════════════════════════════════════════════ */
+function renderCategoryPage(cat) {
+  const info = CATS[cat] || {label:cat, icon:'🎮', desc:''};
+  document.getElementById('cat-icon').textContent = info.icon;
+  document.getElementById('cat-eyebrow').textContent = 'Categoria · ' + info.label;
+  document.getElementById('cat-title').textContent = info.label;
+  document.getElementById('cat-subtitle').textContent = CAT_DESCS[cat] || '';
+  document.getElementById('cat-search').value = '';
+  document.getElementById('cat-sort').value = 'relevance';
+  document.getElementById('stock-toggle').classList.remove('on');
+
+  // subcategorias
+  const subcats = [...new Set(PRODUCTS.filter(p => p.category === cat).map(p => p.subcategory))];
+  document.getElementById('cat-subcat-pills').innerHTML = `
+    <button class="subcat-pill active" data-sub="all" onclick="setCatSubcat('all',this)">Todos</button>` +
+    subcats.map(s => `<button class="subcat-pill" data-sub="${s}" onclick="setCatSubcat('${s}',this)">${s}</button>`).join('');
+
+  renderCatGrid();
+
+  // eventos de busca e sort
+  document.getElementById('cat-search').oninput = function() {
+    catFilter.search = this.value;
+    catPage = 1;
+    renderCatGrid();
+  };
+  document.getElementById('cat-sort').onchange = function() {
+    catFilter.sort = this.value;
+    catPage = 1;
+    renderCatGrid();
+  };
+}
+
+function setCatSubcat(sub, el) {
+  catFilter.subcat = sub;
+  catPage = 1;
+  document.querySelectorAll('.subcat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderCatGrid();
+}
+
+function toggleStock() {
+  const t = document.getElementById('stock-toggle');
+  catFilter.stockOnly = !catFilter.stockOnly;
+  t.classList.toggle('on', catFilter.stockOnly);
+  catPage = 1;
+  renderCatGrid();
+}
+
+function renderCatGrid() {
+  const all = filterProducts(currentCat, catFilter.search, catFilter.sort, catFilter.subcat, catFilter.stockOnly);
+  const page = paginate(all, catPage, PER_PAGE);
+  const totalPages = Math.ceil(all.length / PER_PAGE);
+
+  document.getElementById('cat-count').textContent = `${all.length} produto${all.length !== 1 ? 's' : ''}`;
+
+  const grid = document.getElementById('cat-products-grid');
+  if (!all.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;font-size:10px;opacity:.7">GAME OVER — Nenhum produto encontrado. Tente outros filtros.</div>';
+  } else {
+    grid.innerHTML = page.map(p => renderProdCard(p)).join('');
+  }
+
+  renderPagination(totalPages);
+}
+
+function renderProdCard(p) {
+  const lowStock = p.stock > 0 && p.stock <= 2;
+  const noStock = p.stock === 0;
+  return `
+  <div class="prod-card ${noStock ? 'out-of-stock' : ''}" data-prod-id="${p.id}">
+    <div class="prod-badge-wrap">
+      <span class="tag ${p.badge_color === 'red' ? 'red' : p.badge_color === 'green' ? 'green' : ''}">${p.badge}</span>
+      ${lowStock ? `<span class="prod-stock-tag">⚠ ${p.stock} restantes</span>` : ''}
+      ${noStock ? `<span class="prod-stock-tag">Esgotado</span>` : ''}
+    </div>
+    <div class="prod-mock ${mockClass(p.category)}" onclick="navigate('product/${p.id}')">${p.emoji}</div>
+    <div class="prod-info" onclick="navigate('product/${p.id}')">
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-desc">${p.desc}</div>
+      <div class="prod-price">${p.price_old ? `<small>${fmt(p.price_old)}</small>` : ''}${fmt(p.price)}</div>
+    </div>
+    <div class="prod-btns">
+      <button class="btn btn-secondary" onclick="addToCart('${p.id}')" ${noStock ? 'disabled' : ''}>+ Carrinho</button>
+      <a class="btn btn-ghost" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Interesse em: ' + p.name + ' - ' + fmt(p.price))}" target="_blank">WA</a>
+    </div>
+  </div>`;
+}
+
+function renderPagination(totalPages) {
+  const pag = document.getElementById('cat-pagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  let html = `<button class="page-btn" onclick="goToPage(${catPage-1})" ${catPage===1?'disabled':''}>← Anterior</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${i===catPage?'current':''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goToPage(${catPage+1})" ${catPage===totalPages?'disabled':''}>Próxima →</button>`;
+  pag.innerHTML = html;
+}
+
+function goToPage(p) {
+  const all = filterProducts(currentCat, catFilter.search, catFilter.sort, catFilter.subcat, catFilter.stockOnly);
+  const total = Math.ceil(all.length / PER_PAGE);
+  if (p < 1 || p > total) return;
+  catPage = p;
+  renderCatGrid();
+  document.getElementById('page-category').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════════
+   PÁGINA DE PRODUTO
+══════════════════════════════════════════════ */
+function renderProductPage(id) {
+  const p = getProductById(id);
+  if (!p) { navigate('home'); return; }
+
+  // breadcrumb
+  document.getElementById('product-breadcrumb').innerHTML = `
+    <a href="#" onclick="navigate('home');return false">Home</a>
+    <span class="sep">▸</span>
+    <a href="#" onclick="navigate('category/${p.category}');return false">${CATS[p.category]?.label || p.category}</a>
+    <span class="sep">▸</span>
+    <span>${p.name}</span>`;
+
+  // mock
+  const mock = document.getElementById('product-mock-big');
+  mock.className = `prod-mock-big ${mockClass(p.category)}`;
+  mock.textContent = p.emoji;
+
+  // info
+  const savings = p.price_old ? p.price_old - p.price : 0;
+  const rating = 8 + (parseInt(p.id.replace('prod_','')) % 40);
+  const inStock = p.stock > 0;
+
+  document.getElementById('product-info-col').innerHTML = `
+    <div class="eyebrow">${CATS[p.category]?.label || p.category}</div>
+    <h1>${p.name}</h1>
+    <div class="product-rating">
+      <div class="mario-stars">${'<div class="mario-star"></div>'.repeat(5)}</div>
+      <span>(${rating} avaliações)</span>
+    </div>
+    ${p.price_old ? `<span class="product-old-price">${fmt(p.price_old)}</span>` : ''}
+    <span class="product-main-price">${fmt(p.price)}</span>
+    ${savings > 0 ? `<span class="savings-badge">Você economiza ${fmt(savings)}</span>` : ''}
+    <p class="product-desc">${p.desc}</p>
+    <ul class="product-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
+    <span class="product-stock ${inStock ? 'in' : 'out'}">${inStock ? '✓ ' + p.stock + ' unidade(s) em estoque' : '✗ Produto esgotado'}</span>
+    <div class="qty-control">
+      <label>Quantidade:</label>
+      <div class="qty-wrap">
+        <button class="qty-btn" onclick="changeQty(-1)">-</button>
+        <input class="qty-num" id="prod-qty" type="number" value="1" min="1" max="${p.stock}" readonly>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+    <div class="product-action-btns">
+      <button class="btn btn-secondary" onclick="addToCartQty('${p.id}')" ${!inStock?'disabled':''}>+ Adicionar ao carrinho</button>
+      <a class="btn btn-green" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Quero comprar: ' + p.name + ' por ' + fmt(p.price))}" target="_blank">Comprar pelo WhatsApp</a>
+    </div>`;
+
+  // relacionados
+  const related = PRODUCTS.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
+  document.getElementById('related-grid').innerHTML = related.map(r => renderProdCard(r)).join('');
+}
+
+function changeQty(dir) {
+  const inp = document.getElementById('prod-qty');
+  if (!inp) return;
+  const val = parseInt(inp.value) + dir;
+  const max = parseInt(inp.max);
+  if (val >= 1 && val <= max) inp.value = val;
+}
+
+function addToCartQty(id) {
+  const qty = parseInt(document.getElementById('prod-qty')?.value || 1);
+  for (let i = 0; i < qty; i++) addToCart(id, false);
+  updateCartUI();
+  openCart();
+}
+
+/* ══════════════════════════════════════════════
+   CARRINHO
+══════════════════════════════════════════════ */
+function addToCart(id, open = false) {
+  const p = getProductById(id);
+  if (!p || p.stock === 0) return;
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    if (existing.qty < p.stock) existing.qty++;
+  } else {
+    cart.push({id, qty: 1});
+  }
+  saveCartLS();
+  updateCartUI();
+  if (open) openCart();
+  // coin pop animation
+  const btn = event?.target;
+  if (btn) {
+    const pop = document.createElement('div');
+    pop.style.cssText = 'position:fixed;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,#F9D76B 60%,#E8A820 100%);border:2px solid #000;z-index:999;pointer-events:none;animation:coin-pop-abs .5s ease forwards';
+    const rect = btn.getBoundingClientRect();
+    pop.style.left = rect.left + rect.width/2 - 10 + 'px';
+    pop.style.top = rect.top - 10 + 'px';
+    if (!document.getElementById('coin-pop-style')) {
+      const s = document.createElement('style');
+      s.id = 'coin-pop-style';
+      s.textContent = '@keyframes coin-pop-abs{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-48px)}}';
+      document.head.appendChild(s);
+    }
+    document.body.appendChild(pop);
+    setTimeout(() => pop.remove(), 520);
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  saveCartLS();
+  updateCartUI();
+}
+
+function changeCartQty(id, dir) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  const p = getProductById(id);
+  item.qty += dir;
+  if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+  if (item.qty > p.stock) item.qty = p.stock;
+  saveCartLS();
+  updateCartUI();
+}
+
+function cartTotal() {
+  return cart.reduce((sum, c) => {
+    const p = getProductById(c.id);
+    return sum + (p ? p.price * c.qty : 0);
+  }, 0);
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('hud-coins').textContent = String(count).padStart(2,'0');
+  document.getElementById('cart-total').textContent = fmt(cartTotal());
+
+  const itemsEl = document.getElementById('cart-items');
+  if (!cart.length) {
+    itemsEl.innerHTML = `<div class="cart-empty"><p style="font-size:28px">🛒</p><p>Carrinho vazio.<br>Adicione produtos para continuar.</p></div>`;
+    return;
+  }
+  itemsEl.innerHTML = cart.map(c => {
+    const p = getProductById(c.id);
+    if (!p) return '';
+    return `
+    <div class="cart-item">
+      <div class="cart-item-mock ${mockClass(p.category)}">${p.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p.name}</div>
+        <span class="cart-item-price">${fmt(p.price)}</span>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" onclick="changeCartQty('${p.id}',-1)">-</button>
+          <span>${c.qty}</span>
+          <button class="cart-qty-btn" onclick="changeCartQty('${p.id}',1)">+</button>
+        </div>
+      </div>
+      <button class="cart-remove" onclick="removeFromCart('${p.id}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function openCart() {
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.classList.add('no-scroll');
+}
+
+function closeCart() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+/* ══════════════════════════════════════════════
+   CHECKOUT
+══════════════════════════════════════════════ */
+function openCheckout() {
+  if (!cart.length) return;
+  closeCart();
+  checkoutStep = 1;
+  checkoutData = {};
+  selectedPayment = '';
+  document.getElementById('checkout-overlay').classList.add('open');
+  document.body.classList.add('no-scroll');
+  renderCheckoutStep();
+}
+
+function closeCheckout() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+function updateStepIndicators() {
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById('step-' + i);
+    el.classList.remove('active','done');
+    if (i === checkoutStep) el.classList.add('active');
+    else if (i < checkoutStep) el.classList.add('done');
+  }
+}
+
+function renderCheckoutStep() {
+  updateStepIndicators();
+  const body = document.getElementById('checkout-body');
+  const footer = document.getElementById('checkout-footer');
+
+  if (checkoutStep === 1) {
+    body.innerHTML = `
+      <div style="margin-bottom:16px"><div class="eyebrow">Seus dados</div></div>
+      <div class="checkout-form-group">
+        <div class="form-field"><label>Nome completo *</label><input id="co-name" type="text" placeholder="Seu nome" value="${checkoutData.name||''}"></div>
+        <div class="form-field"><label>WhatsApp *</label><input id="co-wa" type="tel" placeholder="(XX) XXXXX-XXXX" value="${checkoutData.wa||''}"></div>
+        <div style="font-size:9px;text-transform:uppercase;opacity:.8;margin-bottom:6px">Forma de retirada *</div>
+        <div class="radio-group">
+          <div class="radio-opt ${checkoutData.delivery==='loja'?'selected':''}" onclick="selectDelivery('loja',this)">🏪 Retirada na loja</div>
+          <div class="radio-opt ${checkoutData.delivery==='entrega'?'selected':''}" onclick="selectDelivery('entrega',this)">🚚 Entrega</div>
+        </div>
+        <div id="addr-field" style="display:${checkoutData.delivery==='entrega'?'block':'none'}">
+          <div class="form-field"><label>Endereço de entrega</label><input id="co-addr" type="text" placeholder="Rua, número, bairro" value="${checkoutData.addr||''}"></div>
+        </div>
+        <div class="form-error" id="co-err"></div>
+      </div>
+      <div style="margin-top:14px;padding:14px;border:2px solid #000;background:rgba(255,255,255,.7);font-size:9px;line-height:2">
+        <strong style="font-size:10px">Resumo do pedido:</strong><br>
+        ${cart.map(c => { const p = getProductById(c.id); return p ? `${p.name} × ${c.qty} — ${fmt(p.price * c.qty)}` : ''; }).join('<br>')}
+        <br><strong>Total: ${fmt(cartTotal())}</strong>
+      </div>`;
+    footer.innerHTML = `<button class="btn btn-secondary" onclick="nextCheckoutStep()">Próximo →</button>`;
+  }
+
+  else if (checkoutStep === 2) {
+    const cfg = getPayCfg();
+    const mpLink = cfg.mp_link || '';
+    const pixKey = cfg.pix_key || '24998840803';
+    body.innerHTML = `
+      <div style="margin-bottom:16px"><div class="eyebrow">Forma de pagamento</div></div>
+      <div class="payment-cards">
+        <div class="payment-card ${selectedPayment==='mp'?'selected':''}" onclick="selectPayment('mp',this)">
+          <span class="payment-card-icon">💳</span>
+          <span class="payment-card-title">Mercado Pago</span>
+          <span class="payment-card-badge gold">Cartão · PIX · Boleto</span>
+        </div>
+        <div class="payment-card ${selectedPayment==='pix'?'selected':''}" onclick="selectPayment('pix',this)">
+          <span class="payment-card-icon" style="color:#32BCAD">◈</span>
+          <span class="payment-card-title">PIX Direto</span>
+          <span class="payment-card-badge green">Instantâneo</span>
+        </div>
+        <div class="payment-card ${selectedPayment==='wa'?'selected':''}" onclick="selectPayment('wa',this)">
+          <span class="payment-card-icon" style="color:#25d366">💬</span>
+          <span class="payment-card-title">WhatsApp</span>
+          <span class="payment-card-badge gray">Combinar</span>
+        </div>
+      </div>
+      <div class="payment-detail ${selectedPayment==='mp'?'show':''}" id="pay-mp">
+        ${mpLink
+          ? `<p style="font-size:9px;line-height:2;margin-bottom:12px">Você será redirecionado para o ambiente seguro do Mercado Pago para pagar com cartão, PIX ou boleto.</p>
+             <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="window.open('${mpLink}','_blank')">Ir para o pagamento seguro →</button>`
+          : `<p style="font-size:9px;padding:10px;background:rgba(249,215,107,.3);border:2px solid #000;line-height:2">⚠ Link do Mercado Pago não configurado. Configure no painel admin → Pagamentos.</p>`}
+        <div class="security-seals">🔒 Ambiente 100% seguro · SSL · Dados protegidos pelo Mercado Pago</div>
+      </div>
+      <div class="payment-detail ${selectedPayment==='pix'?'show':''}" id="pay-pix">
+        <p style="font-size:9px;line-height:2;margin-bottom:10px">Chave PIX da loja:</p>
+        <div class="pix-key-wrap">
+          <input class="pix-key" type="text" value="${pixKey}" readonly id="pix-key-val">
+          <button class="copy-btn" onclick="copyPix()">Copiar</button>
+        </div>
+        <p style="font-size:9px;line-height:2;margin-bottom:10px">Valor a pagar: <strong>${fmt(cartTotal())}</strong></p>
+        <p style="font-size:9px;line-height:2">Após pagar, clique em Enviar Comprovante para finalizar o pedido.</p>
+      </div>
+      <div class="payment-detail ${selectedPayment==='wa'?'show':''}" id="pay-wa">
+        <p style="font-size:9px;line-height:2;margin-bottom:12px">Clique abaixo para abrir o WhatsApp com o resumo do seu pedido.</p>
+      </div>`;
+    footer.innerHTML = `
+      <button class="btn btn-ghost" onclick="checkoutStep=1;renderCheckoutStep()">← Voltar</button>
+      <button class="btn btn-secondary" onclick="finishPayment()">Confirmar pagamento →</button>`;
+  }
+
+  else if (checkoutStep === 3) {
+    const orderId = '#SG' + String(Date.now()).slice(-6);
+    const orders = getOrders();
+    orders.unshift({
+      id: orderId,
+      name: checkoutData.name,
+      wa: checkoutData.wa,
+      delivery: checkoutData.delivery,
+      payment: selectedPayment,
+      items: cart.map(c => { const p = getProductById(c.id); return {name:p?.name, qty:c.qty, price:p?.price}; }),
+      total: cartTotal(),
+      status: 'Novo',
+      date: new Date().toLocaleDateString('pt-BR')
+    });
+    saveOrders(orders);
+    cart = [];
+    saveCartLS();
+    updateCartUI();
+
+    body.innerHTML = `
+      <div class="level-up">
+        <h2>LEVEL UP! 🌟</h2>
+        <div class="coins-rain" id="coins-rain"></div>
+        <p>Pedido recebido com sucesso!</p>
+        <div class="order-number">${orderId}</div>
+        <p>Nome: <strong>${checkoutData.name}</strong></p>
+        <p>Retirada: <strong>${checkoutData.delivery === 'loja' ? 'Na loja' : 'Entrega'}</strong></p>
+        <p>Total: <strong>${fmt(cartTotal() || 0)}</strong></p>
+        <p style="margin-top:14px">Entraremos em contato pelo WhatsApp para confirmar.</p>
+        <a class="btn btn-green" style="margin-top:18px" href="https://wa.me/${WA}?text=${encodeURIComponent('Pedido ' + orderId + ' | ' + checkoutData.name + ' | Total: R$ ' + (cartTotal() || 0).toFixed(2))}" target="_blank">Confirmar no WhatsApp</a>
+      </div>`;
+    footer.innerHTML = `<button class="btn btn-secondary" onclick="closeCheckout();navigate('home')">Voltar para a loja</button>`;
+    spawnCoins();
+  }
+}
+
+function selectDelivery(type, el) {
+  checkoutData.delivery = type;
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('addr-field').style.display = type === 'entrega' ? 'block' : 'none';
+}
+
+function nextCheckoutStep() {
+  const name = document.getElementById('co-name')?.value.trim();
+  const wa = document.getElementById('co-wa')?.value.trim();
+  const err = document.getElementById('co-err');
+  if (!name || !wa || !checkoutData.delivery) {
+    err.textContent = 'GAME OVER — Preencha todos os campos obrigatórios!';
+    err.classList.add('show');
+    return;
+  }
+  err.classList.remove('show');
+  checkoutData.name = name;
+  checkoutData.wa = wa;
+  checkoutData.addr = document.getElementById('co-addr')?.value || '';
+  checkoutStep = 2;
+  renderCheckoutStep();
+}
+
+function selectPayment(type, el) {
+  selectedPayment = type;
+  document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.querySelectorAll('.payment-detail').forEach(d => d.classList.remove('show'));
+  document.getElementById('pay-' + type)?.classList.add('show');
+}
+
+function copyPix() {
+  const val = document.getElementById('pix-key-val')?.value;
+  if (val) navigator.clipboard.writeText(val).catch(() => {});
+  const btn = event.target;
+  btn.textContent = '✓ Copiado!';
+  setTimeout(() => btn.textContent = 'Copiar', 2000);
+}
+
+function finishPayment() {
+  if (!selectedPayment) { alert('Selecione uma forma de pagamento!'); return; }
+  if (selectedPayment === 'wa') {
+    const msg = 'Pedido | ' + checkoutData.name + '\n' + cart.map(c => { const p = getProductById(c.id); return (p?.name || '') + ' × ' + c.qty; }).join('\n') + '\nTotal: ' + fmt(cartTotal());
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+  checkoutStep = 3;
+  renderCheckoutStep();
+}
+
+function spawnCoins() {
+  const wrap = document.getElementById('coins-rain');
+  if (!wrap) return;
+  for (let i = 0; i < 8; i++) {
+    const c = document.createElement('div');
+    c.className = 'rain-coin';
+    c.style.left = (10 + i * 10) + '%';
+    c.style.animationDelay = (i * 0.12) + 's';
+    wrap.appendChild(c);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   PAINEL ADMIN
+══════════════════════════════════════════════ */
+function openAdmin() {
+  document.getElementById('admin-overlay').classList.add('open');
+  document.body.classList.add('no-scroll');
+  if (adminLogged) { document.getElementById('admin-login-wrap').style.display='none'; document.getElementById('admin-body').style.display='block'; renderAdminStock(); }
+  else { document.getElementById('admin-login-wrap').style.display='block'; document.getElementById('admin-body').style.display='none'; }
+}
+
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+function doAdminLogin() {
+  const pwd = document.getElementById('admin-pwd').value;
+  if (pwd === getPwd()) {
+    adminLogged = true;
+    document.getElementById('admin-login-wrap').style.display = 'none';
+    document.getElementById('admin-body').style.display = 'block';
+    document.getElementById('admin-err').classList.remove('show');
+    renderAdminStock();
+    const cfg = getPayCfg();
+    if (cfg.mp_link) document.getElementById('cfg-mp-link').value = cfg.mp_link;
+    if (cfg.pix_key) document.getElementById('cfg-pix').value = cfg.pix_key;
+  } else {
+    document.getElementById('admin-err').classList.add('show');
+    document.getElementById('admin-pwd').value = '';
+  }
+}
+
+document.getElementById('admin-pwd')?.addEventListener('keydown', e => { if (e.key === 'Enter') doAdminLogin(); });
+
+function switchAdminPanel(panel) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.admin-tab[data-apanel="${panel}"]`)?.classList.add('active');
+  document.getElementById('apanel-' + panel)?.classList.add('active');
+  if (panel === 'estoque') renderAdminStock();
+  if (panel === 'pedidos') renderAdminOrders();
+}
+
+function renderAdminStock() {
+  const low = PRODUCTS.filter(p => p.stock > 0 && p.stock <= 2).length;
+  const out = PRODUCTS.filter(p => p.stock === 0).length;
+  document.getElementById('ast-total').textContent = PRODUCTS.length;
+  document.getElementById('ast-low').textContent = low;
+  document.getElementById('ast-out').textContent = out;
+
+  document.getElementById('stock-tbody').innerHTML = PRODUCTS.map((p, i) => {
+    const [lbl, cls] = p.stock === 0 ? ['Sem estoque','s-out'] : p.stock <= 2 ? ['Baixo','s-low'] : ['OK','s-ok'];
+    return `<tr>
+      <td style="font-weight:bold;font-size:9px">${p.name}</td>
+      <td style="font-size:8px;opacity:.7">${p.category}</td>
+      <td><input class="prod-edit-input" value="${p.price.toFixed(2)}" onchange="PRODUCTS[${i}].price=parseFloat(this.value)||${p.price}"></td>
+      <td>
+        <div class="qty-ctrl">
+          <button onclick="PRODUCTS[${i}].stock=Math.max(0,PRODUCTS[${i}].stock-1);renderAdminStock()">-</button>
+          <span style="min-width:24px;text-align:center;font-size:10px">${p.stock}</span>
+          <button onclick="PRODUCTS[${i}].stock++;renderAdminStock()">+</button>
+        </div>
+      </td>
+      <td><span class="s-badge ${cls}">${lbl}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function savePaymentConfig() {
+  const cfg = { mp_link: document.getElementById('cfg-mp-link').value.trim(), pix_key: document.getElementById('cfg-pix').value.trim() };
+  localStorage.setItem(PAY_KEY, JSON.stringify(cfg));
+  const m = document.getElementById('pay-save-ok');
+  m.classList.add('show');
+  setTimeout(() => m.classList.remove('show'), 2500);
+}
+
+function saveConfig() {
+  const wa = document.getElementById('cfg-wa').value.trim();
+  const hr = document.getElementById('cfg-horario').value.trim();
+  const pw = document.getElementById('cfg-pwd').value.trim();
+  const c = getCfg();
+  if (wa) c.wa = wa;
+  if (hr) c.horario = hr;
+  if (pw && pw.length >= 6) { localStorage.setItem(ADMIN_KEY, pw); document.getElementById('cfg-pwd').value = ''; }
+  localStorage.setItem(CFG_KEY, JSON.stringify(c));
+  const m = document.getElementById('cfg-save-ok');
+  m.classList.add('show');
+  setTimeout(() => m.classList.remove('show'), 2500);
+}
+
+function renderAdminOrders() {
+  const orders = getOrders();
+  const el = document.getElementById('orders-list');
+  if (!orders.length) { el.innerHTML = '<p style="font-size:9px;opacity:.6;line-height:2">Nenhum pedido ainda.</p>'; return; }
+  const statusCls = {Novo:'o-new','Em separação':'o-sep',Pronto:'o-ready',Entregue:'o-done'};
+  el.innerHTML = orders.map((o,i) => `
+    <div class="order-item">
+      <div class="order-info">
+        <div class="order-name">${o.id} · ${o.name}</div>
+        <div class="order-detail">${o.date} · ${o.items?.length || 0} item(s) · ${fmt(o.total||0)} · ${o.delivery==='loja'?'Retirada':'Entrega'}</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="order-status-badge ${statusCls[o.status]||'o-new'}">${o.status}</span>
+        <select style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font:inherit;font-size:8px;padding:3px 6px" onchange="updateOrderStatus(${i},this.value)">
+          <option ${o.status==='Novo'?'selected':''}>Novo</option>
+          <option ${o.status==='Em separação'?'selected':''}>Em separação</option>
+          <option ${o.status==='Pronto'?'selected':''}>Pronto</option>
+          <option ${o.status==='Entregue'?'selected':''}>Entregue</option>
+        </select>
+        <a href="https://wa.me/55${(o.wa||'').replace(/\D/g,'')}?text=${encodeURIComponent('Olá ' + o.name + '! Seu pedido ' + o.id + ' está: ' + o.status)}" target="_blank" class="btn btn-green btn-sm">WA</a>
+      </div>
+    </div>`).join('');
+}
+
+function updateOrderStatus(i, val) {
+  const orders = getOrders();
+  if (orders[i]) { orders[i].status = val; saveOrders(orders); renderAdminOrders(); }
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE MENU
+══════════════════════════════════════════════ */
+document.getElementById('menu-btn').addEventListener('click', () => {
+  const open = document.getElementById('mobile-drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open', open);
+  document.getElementById('menu-btn').setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('no-scroll', open);
+});
+document.getElementById('drawer-overlay').addEventListener('click', closeMobileMenu);
+function closeMobileMenu() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('menu-btn').setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('no-scroll');
+}
+
+/* ══════════════════════════════════════════════
+   CARRINHO BTN
+══════════════════════════════════════════════ */
+document.getElementById('cart-btn').addEventListener('click', openCart);
+
+/* ══════════════════════════════════════════════
+   INTRO
+══════════════════════════════════════════════ */
+let introDone = false;
+function closeIntro() {
+  if (introDone) return;
+  introDone = true;
+  document.getElementById('intro').classList.add('gone');
+  document.body.classList.remove('no-scroll');
+  setTimeout(() => document.getElementById('intro')?.remove(), 800);
+}
+document.getElementById('intro-skip').addEventListener('click', closeIntro);
+if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) setTimeout(closeIntro, 150);
+else setTimeout(closeIntro, 4500);
+document.body.classList.add('no-scroll');
+
+/* ══════════════════════════════════════════════
+   REVEAL
+══════════════════════════════════════════════ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ══════════════════════════════════════════════
+   INICIALIZAÇÃO
+══════════════════════════════════════════════ */
+document.getElementById('yr').textContent = new Date().getFullYear();
+cart = getCart();
+updateCartUI();
+renderHomeTab('consoles');
+doNavigate(location.hash.replace('#','') || 'home');
+</script>
+</body>
+</html>

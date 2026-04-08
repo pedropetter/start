@@ -581,10 +581,120 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
   .admin-stats{grid-template-columns:repeat(2,1fr)}
   #wa-float span{display:none}
   #wa-float{width:54px;padding:0;justify-content:center}
-  .hero-stats{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
   .checkout-steps{gap:4px}
   .checkout-step{padding:8px 4px;font-size:7px}
+
+  /* ── MOBILE HERO ── */
+  .hero-section{padding:clamp(20px,4vw,40px) clamp(16px,4vw,32px) 0}
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-copy h1{font-size:clamp(18px,5.5vw,28px)}
+  .hero-visual{display:none} /* esconde a cena decorativa no mobile para ganhar espaço */
+  .hero-actions{gap:10px}
+  .hero-actions .btn{flex:1;min-width:0;font-size:9px;padding:12px 10px}
+  .hero-stats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .hero-stat{padding:10px 6px}
+  .hero-stat strong{font-size:11px}
+  .hero-stat p{font-size:7px}
+  .eyebrow{font-size:7px;padding:5px 8px}
+
+  /* ── MOBILE NAV ── */
+  .nav-top{padding:8px 14px;gap:10px}
+  .hud-logo{gap:6px}
+  .hud-box{padding:5px 8px;font-size:7px}
+  .hud-box strong{font-size:9px}
+  .nav-cats{padding:6px 14px;gap:6px}
+  .nav-cat-btn{padding:7px 10px;font-size:8px}
+
+  /* ── MOBILE FEAT CARDS ── */
+  .feature-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .feat-card{min-height:200px;padding:14px}
+  .feat-card h3{font-size:11px;margin:10px 0 6px}
+  .feat-mock{height:80px}
+
+  /* ── MOBILE CATÁLOGO ── */
+  .catalog-copy{padding:16px;border-right:none;border-bottom:3px solid #000}
+  .catalog-search-wrap{padding:14px 16px}
+  .catalog-body{padding:14px}
+  .catalog-tabs{gap:6px}
+  .catalog-tab{padding:7px 10px;font-size:8px}
+
+  /* ── MOBILE PROMOS ── */
+  .promos-grid{gap:14px}
+  .promo-visual{height:clamp(120px,30vw,180px)}
+  .promo-card h3{font-size:13px}
+
+  /* ── MOBILE REVIEWS ── */
+  .reviews-layout{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .review-score-big{font-size:clamp(40px,15vw,72px)}
+
+  /* ── MOBILE SOBRE ── */
+  .about-cards{grid-template-columns:repeat(2,1fr);gap:10px}
+  .about-card{padding:12px}
+
+  /* ── MOBILE CONTATO ── */
+  .contact-layout{grid-template-columns:1fr}
+  .map-wrap iframe{min-height:260px}
+  .contact-actions{flex-direction:column}
+  .contact-actions .btn{width:100%;justify-content:center}
+
+  /* ── MOBILE FOOTER ── */
+  .footer-game-over{font-size:clamp(20px,7vw,36px)}
+  .footer-grid{gap:20px}
+
+  /* ── MOBILE CARRINHO DRAWER ── */
+  #cart-drawer{width:100vw}
+
+  /* ── MOBILE CHECKOUT ── */
+  #checkout-modal{max-height:95vh}
+  .payment-cards{grid-template-columns:1fr}
+
+  /* ── MOBILE PRODUTO ── */
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .prod-mock{height:clamp(120px,35vw,180px)}
+  .prod-name{font-size:8px}
+  .prod-price{font-size:13px}
+  .prod-btns{grid-template-columns:1fr;gap:6px}
+  .prod-btns .btn.btn-ghost{display:none} /* esconde "Ver detalhes" no mobile, mantém só "Carrinho" */
+
+  /* ── MOBILE TICKER ── */
+  .ticker{padding:8px 0}
+
+  /* ── MOBILE INTRO CARD ── */
+  .intro-card{padding:20px 16px;min-width:min(88vw,360px)}
+  .intro-world{font-size:clamp(14px,5vw,24px)}
+
+  /* ── MOBILE ADMIN ── */
+  .admin-stats{grid-template-columns:1fr}
+  .stock-table{font-size:8px}
+  .stock-table th,.stock-table td{padding:6px 6px}
+
+  /* ── MOBILE SEÇÃO HEADER ── */
+  .section-head h2{font-size:clamp(16px,5vw,28px)}
+  .section{padding-block:clamp(40px,6vw,80px)}
+
+  /* ── MOBILE WA FLOAT ── */
+  #wa-float{bottom:14px;right:14px}
+
+  /* ── MOBILE BOTÃO ADMIN ── */
+  #admin-btn-trigger{bottom:14px;left:14px}
 }
+
+/* ── TABLET REFINEMENTS ── */
+@media(max-width:480px){
+  .feature-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .about-cards{grid-template-columns:1fr}
+  .products-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .hud-logo .hud-box:last-child{display:none} /* esconde WORLD no mobile pequeno */
+  .nav-cats{gap:4px}
+  .nav-cat-btn{font-size:7px;padding:6px 8px}
+  .catalog-tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .catalog-tab{flex-shrink:0}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>

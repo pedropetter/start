@@ -191,11 +191,11 @@ iframe{display:block;border:0}
 .feat-card.active{border-color:var(--mario-red);border-width:4px}
 .feat-card h3{font-size:14px;text-transform:uppercase;margin:14px 0 10px;line-height:1.5}
 .feat-card p{font-size:9px;line-height:2;flex:1}
-.feat-mock{height:clamp(100px,14vw,160px);margin-top:14px;border:3px solid #000;background:#fff;box-shadow:inset -3px -3px 0 rgba(0,0,0,.15)}
-.feat-mock.consoles{background:linear-gradient(135deg,#fff 0%,#d0e0ff 100%)}
-.feat-mock.retro{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.12) 18px 20px),linear-gradient(180deg,#ffd060,#e08040)}
-.feat-mock.acessorios{background:radial-gradient(circle at 30% 50%,var(--sky) 0 18%,transparent 19%),radial-gradient(circle at 70% 50%,var(--mario-red) 0 18%,transparent 19%),#fff}
-.feat-mock.tecnologia{background:linear-gradient(180deg,#fff,#d0f7ff)}
+.feat-mock{height:clamp(100px,14vw,160px);margin-top:14px;border:3px solid #000;background-color:#fff;box-shadow:inset -3px -3px 0 rgba(0,0,0,.15);background-size:cover;background-position:center;background-repeat:no-repeat}
+.feat-mock.consoles{background-image:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,.14)),url('https://i.pinimg.com/1200x/7e/cf/89/7ecf89eac92839e942ac0561308dec38.jpg')}
+.feat-mock.retro{background-image:linear-gradient(rgba(255,208,96,.12),rgba(224,128,64,.18)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Sega-Mega-Drive-EU-Mk1-wController-FL.png')}
+.feat-mock.acessorios{background-image:linear-gradient(rgba(255,255,255,.16),rgba(255,255,255,.16)),url('https://i.pinimg.com/736x/20/98/dd/2098ddaa2bc5d73c54a060ec5cca673e.jpg')}
+.feat-mock.tecnologia{background-image:linear-gradient(rgba(255,255,255,.16),rgba(208,247,255,.2)),url('https://i.pinimg.com/736x/b9/ec/6d/b9ec6da92c6b46e808facf071debd04f.jpg')}
 .feat-mock.jogos{background:linear-gradient(180deg,var(--underground),#3a1060)}
 .feat-btn{margin-top:14px;width:100%;text-align:center}
 
@@ -235,10 +235,10 @@ iframe{display:block;border:0}
 .promo-card{padding:clamp(18px,2.5vw,30px);border:3px solid #000;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .promo-card.gold{background:linear-gradient(180deg,var(--coin),var(--coin-dark))}
 .promo-card.brick{background:linear-gradient(180deg,var(--brick),var(--brick-dark));color:#fff}
-.promo-visual{height:clamp(140px,18vw,220px);border:3px solid #000;margin-bottom:18px;background:#fff;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,5vw,52px);color:rgba(0,0,0,.1);font-family:"Press Start 2P",monospace}
-.promo-visual.ps5{background:linear-gradient(135deg,#fff,#d7e5ff);color:rgba(0,0,50,.15)}
-.promo-visual.xbox{background:linear-gradient(135deg,#b9ffd0,#6bc37e);color:rgba(0,50,0,.15)}
-.promo-visual.retro{background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.1) 18px 20px),linear-gradient(180deg,#ffd060,#d07030);color:rgba(0,0,0,.15)}
+.promo-visual{height:clamp(140px,18vw,220px);border:3px solid #000;margin-bottom:18px;background-color:#fff;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,5vw,52px);color:rgba(0,0,0,.1);font-family:"Press Start 2P",monospace;background-size:cover;background-position:center;background-repeat:no-repeat}
+.promo-visual.ps5{background-image:linear-gradient(rgba(255,255,255,.18),rgba(215,229,255,.18)),url('https://i.pinimg.com/736x/8b/ed/07/8bed0786ab2847a7e3c17156f8bf9855.jpg');color:rgba(0,0,50,.15)}
+.promo-visual.xbox{background-image:linear-gradient(rgba(185,255,208,.16),rgba(107,195,126,.2)),url('https://cms-assets.xboxservices.com/assets/bf/b0/bfb06f23-4c87-4c58-b4d9-ed25d3a739b9.png?n=389964_Hero-Gallery-0_A1_857x676.png');color:rgba(0,50,0,.15)}
+.promo-visual.retro{background-image:linear-gradient(rgba(255,208,96,.12),rgba(208,112,48,.18)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Sega-Mega-Drive-EU-Mk1-wController-FL.png');color:rgba(0,0,0,.15)}
 .promo-card h3{font-size:clamp(14px,2vw,22px);text-transform:uppercase;margin:10px 0 10px;line-height:1.5}
 .promo-card p{font-size:9px;line-height:2;flex:1;opacity:.9}
 .promo-card .catalog-price{font-size:22px;margin:14px 0 12px}
@@ -684,7 +684,7 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
         <p>Consoles, acessórios, retro e tecnologia em Resende - RJ. Compra, venda, troca e assistência técnica com atendimento direto no WhatsApp.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="navigate('category/consoles')">Ver produtos</button>
-          <a class="btn btn-secondary" href="https://wa.me/5524998840803?text=Olá! Vim pelo site e quero saber mais." target="_blank">WhatsApp</a>
+          <a class="btn btn-secondary" id="hero-wa-btn" href="https://wa.me/5524998840803?text=Olá! Vim pelo site e quero saber mais." target="_blank">WhatsApp</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat card-coin reveal"><div class="eyebrow">Avaliação</div><strong>5,0 ⭐</strong><p>19+ avaliações no Google</p></div>
@@ -821,7 +821,7 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
           <h3>PlayStation 5 Slim</h3>
           <p>Nova geração, SSD ultrarrápido e DualSense com feedback háptico. O protagonista da vitrine.</p>
           <span class="catalog-price"><small>De R$ 3.799,00</small>R$ 3.199,00</span>
-          <button class="btn btn-secondary" onclick="addToCart('prod_001')">+ Carrinho</button>
+          <button class="btn btn-secondary" onclick="addToCart('prod_001', this)">+ Carrinho</button>
         </article>
         <article class="promo-card brick reveal">
           <div class="promo-visual xbox">XBOX</div>
@@ -829,7 +829,7 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
           <h3>Xbox Series S</h3>
           <p>Compacto, rápido e ótima entrada para a geração atual. Game Pass incluso disponível.</p>
           <span class="catalog-price"><small>Consulte</small>R$ 1.899,00</span>
-          <button class="btn btn-primary" onclick="addToCart('prod_004')">+ Carrinho</button>
+          <button class="btn btn-primary" onclick="addToCart('prod_004', this)">+ Carrinho</button>
         </article>
         <article class="promo-card gold reveal">
           <div class="promo-visual retro">RETRO</div>
@@ -916,7 +916,7 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
             <div class="contact-card"><strong>@startgames.resende</strong><span>Instagram · Novidades e promoções</span></div>
           </div>
           <div class="contact-actions">
-            <a class="btn btn-secondary" href="https://wa.me/5524998840803?text=Olá!+Vim+pelo+site." target="_blank">WhatsApp</a>
+            <a class="btn btn-secondary" id="contact-wa-btn" href="https://wa.me/5524998840803?text=Olá!+Vim+pelo+site." target="_blank">WhatsApp</a>
             <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=R.+Henrique+Sivori,+11,+Campos+Eliseos,+Resende+-+RJ" target="_blank">Como chegar</a>
             <a class="btn btn-ghost" href="https://instagram.com/startgames.resende" target="_blank">Instagram</a>
           </div>
@@ -1001,7 +1001,7 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
       <div class="eyebrow">Start Games</div>
       <p>Loja especializada em videogames, tecnologia e produtos gamers em Resende · RJ. Compra, venda, troca e assistência técnica.</p>
       <div class="footer-socials">
-        <a class="social-btn" href="https://wa.me/5524998840803" target="_blank" aria-label="WhatsApp">WA</a>
+        <a class="social-btn" id="footer-wa-btn" href="https://wa.me/5524998840803" target="_blank" aria-label="WhatsApp">WA</a>
         <a class="social-btn" href="https://instagram.com/startgames.resende" target="_blank" aria-label="Instagram">IG</a>
         <a class="social-btn" href="https://www.google.com/maps/dir/?api=1&destination=R.+Henrique+Sivori,+11" target="_blank" aria-label="Mapa">MAP</a>
       </div>
@@ -1104,9 +1104,31 @@ footer{background:#000;color:#fff;border-top:4px solid var(--mario-red);padding:
           <div class="admin-stat"><strong id="ast-low" style="color:var(--coin)">0</strong><span>Estoque baixo</span></div>
           <div class="admin-stat"><strong id="ast-out" style="color:var(--mario-red)">0</strong><span>Sem estoque</span></div>
         </div>
+        <div class="admin-form" style="margin-bottom:16px">
+          <h4>Adicionar produto</h4>
+          <div class="admin-form-grid">
+            <div class="admin-field"><label>Nome</label><input type="text" id="new-prod-name" placeholder="Nome do produto"></div>
+            <div class="admin-field"><label>Categoria</label>
+              <select id="new-prod-cat">
+                <option value="consoles">Consoles</option>
+                <option value="retro">Retro</option>
+                <option value="acessorios">Acessórios</option>
+                <option value="tecnologia">Tecnologia</option>
+                <option value="jogos">Jogos</option>
+              </select>
+            </div>
+            <div class="admin-field"><label>Preço</label><input type="number" id="new-prod-price" placeholder="0,00" step="0.01"></div>
+            <div class="admin-field"><label>Estoque</label><input type="number" id="new-prod-stock" placeholder="0" min="0" step="1"></div>
+            <div class="admin-field"><label>Emoji (opcional)</label><input type="text" id="new-prod-emoji" placeholder="🎮"></div>
+            <div class="admin-field"><label>Image URL (opcional)</label><input type="text" id="new-prod-image" placeholder="https://..."></div>
+          </div>
+          <div class="admin-save-bar">
+            <button class="btn btn-primary btn-sm" onclick="addAdminProduct()">Adicionar produto</button>
+          </div>
+        </div>
         <div style="overflow-x:auto">
           <table class="stock-table">
-            <thead><tr><th>Produto</th><th>Cat.</th><th>Preço</th><th>Qtd.</th><th>Status</th></tr></thead>
+            <thead><tr><th>Produto</th><th>Cat.</th><th>Preço</th><th>Qtd.</th><th>Status</th><th>Ações</th></tr></thead>
             <tbody id="stock-tbody"></tbody>
           </table>
         </div>
@@ -1234,6 +1256,123 @@ const PRODUCTS = [
   {id:"prod_060",name:"Street Fighter 6 — PS5",category:"jogos",subcategory:"playstation",price:249,price_old:299,desc:"O fighting game do ano com modo World Tour, controles modernos e online robusto.",features:["PS5","Fighting","Online","Modo história"],badge:"Luta",badge_color:"",stock:4,featured:false,emoji:"👊"}
 ];
 
+PRODUCTS.forEach(p => {
+  if (typeof p.image_url === 'undefined') p.image_url = '';
+  if (typeof p.emoji === 'undefined') p.emoji = '🎮';
+});
+const REAL_PRODUCT_IMAGES = {
+  prod_001: 'https://i.pinimg.com/736x/f3/76/ad/f376ad50aff8409bed421227426b4940.jpg',
+  prod_002: 'https://media.direct.playstation.com/is/image/sierialto/2025-PS5-Digital-Hero-1-console-dualsense',
+  prod_003: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sony-PlayStation4-Pro-Console-FL.png',
+  prod_004: 'https://cms-assets.xboxservices.com/assets/bf/b0/bfb06f23-4c87-4c58-b4d9-ed25d3a739b9.png?n=389964_Hero-Gallery-0_A1_857x676.png',
+  prod_005: 'https://i.pinimg.com/1200x/cd/ef/37/cdef37d49df388a45bb1137297b087e0.jpg',
+  prod_006: 'https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft-Xbox-One-S-Console-FL.png',
+  prod_007: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cb_auto%3Aborder%2Cc_lpad/b_white/f_auto/q_auto/dpr_1.5/ncom/en_US/products/hardware/nintendo-switch-oled-model-white-set/115461-switch-oled-white-boxart-1200x675',
+  prod_008: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cb_auto%3Aborder%2Cc_lpad/b_white/f_auto/q_auto/dpr_1.5/ncom/en_US/products/hardware/nintendo-switch-lite-blue-112385/112385-nintendo-switch-lite-blue-package-front-1200x675',
+  prod_009: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cc_lpad%2Cw_1240/b_white/f_auto/q_auto/ncom/My%20Nintendo%20Store/EN-US/Hardware/nintendo-switch-neon-blue-neon-red-joy-con-117972/117972-nintendo-switch-neon-blue-neon-red-package-front-1200x675',
+  prod_010: 'https://cdn.akamai.steamstatic.com/steamdeck/images/oled/oled_openedup.png',
+  prod_011: 'https://commons.wikimedia.org/wiki/Special:FilePath/Atari%20Vcs%20Oynx.jpg',
+  prod_012: 'https://commons.wikimedia.org/wiki/Special:FilePath/Analogue%20Pocket%20in%20Yellow%20(53367343185).jpg',
+  prod_013: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sega-Mega-Drive-EU-Mk1-wController-FL.png',
+  prod_014: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo-Super-Famicom-Console-FL.png',
+  prod_015: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo-64-Console-FL.png',
+  prod_016: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo%20Game%20Boy%20Advance%20SP.png',
+  prod_017: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo-Game-Boy-Color-FL.png',
+  prod_018: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sony-PSone-Console-FL.png',
+  prod_019: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sega-Saturn-Console-NA-Mk-I-FL.png',
+  prod_020: 'https://commons.wikimedia.org/wiki/Special:FilePath/Neo%20Geo%20Mini,%20version%20international%20(cropped).jpg',
+  prod_021: 'https://commons.wikimedia.org/wiki/Special:FilePath/Evercade%20vs%20with%201%20gamepad.png',
+  prod_022: 'https://i.pinimg.com/736x/78/7c/4d/787c4dd446457146766307db368f8272.jpg',
+  prod_023: 'https://anbernic.com/cdn/shop/files/14_c2ec95e4-4aee-490b-b978-ea4c624ec0f9.jpg?v=1759139140&width=800',
+  prod_024: 'https://i.pinimg.com/1200x/a1/5e/89/a15e89c3ab3fb2e1c306c22753b698e7.jpg',
+  prod_025: 'https://media.direct.playstation.com/is/image/sierialto/dualsense-hero-1',
+  prod_026: 'https://i.pinimg.com/1200x/7d/40/95/7d4095f2a104fdecc6e707b99a2923c8.jpg',
+  prod_027: 'https://i.pinimg.com/736x/1f/47/ce/1f47ce2785a82c5aaeb22704fb2c6a7b.jpg',
+  prod_028: 'https://www.8bitdo.com/images/2018/sn30pro/sn30pro-green.png',
+  prod_029: 'https://hyperx.com/cdn/shop/files/hyperx_cloud_ii_red_1_main.jpg?v=1763563198',
+  prod_030: 'https://images.ctfassets.net/hmm5mo4qf4mf/6iXmUiisozVNZx3FGKd6jt/cac81a94df79f165d90cff1b3870ca72/arctis_nova_3p_wl_black_pdp_img_buy_01.png?fit=scale&fm=webp&q=90&w=1920',
+  prod_031: 'https://i.ytimg.com/vi_webp/cI9e96rIDAw/maxresdefault.webp',
+  prod_032: 'https://media.direct.playstation.com/is/image/sierialto/DualSense-Charging-Station-Hero-1',
+  prod_033: 'https://i.pinimg.com/1200x/e6/86/37/e68637898d7d8d7febeeac86d5367de8.jpg',
+  prod_034: 'https://media.direct.playstation.com/is/image/sierialto/DualSense-Charging-Station-Hero-1',
+  prod_035: 'https://i.pinimg.com/736x/87/ec/b7/87ecb715a4075a370989402b38762843.jpg',
+  prod_036: 'https://i.pinimg.com/736x/ff/19/d7/ff19d719f2094177adb65b1fd99c0845.jpg',
+  prod_037: 'https://i.pinimg.com/736x/61/5b/2f/615b2fa094ecfc32c334c49e1506ef76.jpg',
+  prod_038: 'https://i.pinimg.com/736x/ac/e7/f8/ace7f81e1e2092c78eecfc38db360d0a.jpg',
+  prod_039: 'https://resource.logitech.com/w_544%2Ch_466%2Car_7%3A6%2Cc_pad%2Cq_auto%2Cf_auto%2Cdpr_1.0/d_transparent.gif/content/dam/logitech/en/products/webcams/c920s/gallery/c920s-gallery-1.png',
+  prod_040: 'https://i.pinimg.com/736x/99/ed/a1/99eda1a1976bb1740df4d07944d29052.jpg',
+  prod_041: 'https://i.pinimg.com/1200x/ea/d3/e2/ead3e2a047b96481ac0d815185521b90.jpg',
+  prod_042: 'https://i.pinimg.com/736x/ae/28/5b/ae285b77500d1d2686535f75bdb4dbf1.jpg',
+  prod_043: 'https://res.cloudinary.com/elgato-pwa/image/upload/q_auto%2Cf_auto/f_auto/q_auto/v1773402952/Products/10GBE9901/above-the-fold/Final/HD60_X_ATF_01.jpg',
+  prod_044: 'https://i.pinimg.com/736x/77/91/a3/7791a314d5053830b562fc5f54598239.jpg',
+  prod_045: 'https://i.pinimg.com/736x/07/f1/ee/07f1ee7bcfeb9337e9120006b7d0cdb9.jpg',
+  prod_046: 'https://i.pinimg.com/736x/18/f2/6b/18f26b5943c42bd46f1cbc21a47298e6.jpg',
+  prod_047: 'https://i.pinimg.com/1200x/5a/70/4b/5a704b7d8b0c71d29861aab3d3d69fc9.jpg',
+  prod_048: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gaming_chair.jpg',
+  prod_049: 'https://image.api.playstation.com/vulcan/ap/rnd/202207/1117/mcqbWrEm1FqWa0781iB5GSu4.jpg?w=1200',
+  prod_050: 'https://media.direct.playstation.com/is/image/sierialto/ps5-msm2-box-front',
+  prod_051: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cb_auto%3Aborder%2Cc_lpad/b_white/f_auto/q_auto/dpr_1.5/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%20Software/the-legend-of-zelda-tears-of-the-kingdom-112383/112383-nintendo-the-legeld-of-zelda-tears-of-the-kingdom-1200x675',
+  prod_052: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/ncom/en_US/products/games/switch/mario-kart-8-deluxe/105275-switch-mario-kart-8-deluxe-us-1200x675',
+  prod_053: 'https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/M2IBVSWR2ao2oHizClzsUaYL.png',
+  prod_054: 'https://commons.wikimedia.org/wiki/Special:FilePath/Hogwarts%20Legacy.png',
+  prod_055: 'https://image.api.playstation.com/vulcan/ap/rnd/202503/2520/09767c0f0551c8a3edf9ab4727eb084c7cae88fecef16a09.png',
+  prod_056: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cb_auto%3Aborder%2Cc_lpad/b_white/f_auto/q_auto/dpr_1.5/store/software/switch/70010000000964/e7082dff513211e2bec6facddfc66576edaf4b62086116e6290828f8075c95aa',
+  prod_057: 'https://assets.nintendo.com/image/upload/ar_16%3A9%2Cb_auto%3Aborder%2Cc_lpad/b_white/f_auto/q_auto/dpr_1.5/store/software/switch/70010000036098/758ab0b61205081da2466386940752c70e0e5ea43bd39e8b9b13eaa455c69b7e',
+  prod_058: 'https://i.pinimg.com/1200x/ee/fb/27/eefb2710ab68bcaf49f68df93fef1f7f.jpg',
+  prod_059: 'https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/store/software/switch/70010000042924/4f2c683f0196210ec212a2ab8bf6952223c0b88e827b820953407a2ba61c9cb2',
+  prod_060: 'https://image.api.playstation.com/vulcan/ap/rnd/202603/1805/d5e21cd584031012636c90ced4ac0c2b4de2cfd4cd94808c.png'
+};
+PRODUCTS.forEach(p => {
+  if (REAL_PRODUCT_IMAGES[p.id]) p.image_url = REAL_PRODUCT_IMAGES[p.id];
+});
+const BASE_PRODUCTS = PRODUCTS.map(p => JSON.parse(JSON.stringify(p)));
+const BASE_PRODUCT_IDS = new Set(BASE_PRODUCTS.map(p => p.id));
+
+function applyProductOverrides() {
+  const store = getProductOverrideStore();
+  store.deletedIds.forEach(id => {
+    const idx = PRODUCTS.findIndex(p => p.id === id);
+    if (idx > -1) PRODUCTS.splice(idx, 1);
+  });
+  Object.entries(store.overrides).forEach(([id, data]) => {
+    const prod = PRODUCTS.find(p => p.id === id);
+    if (!prod) return;
+    if (typeof data.price !== 'undefined') prod.price = parseFloat(data.price) || 0;
+    if (typeof data.stock !== 'undefined') prod.stock = Math.max(0, parseInt(data.stock) || 0);
+    if (typeof data.image_url !== 'undefined') prod.image_url = data.image_url || '';
+    if (typeof data.emoji !== 'undefined') prod.emoji = data.emoji || prod.emoji;
+  });
+  store.customProducts.forEach(prod => {
+    if (!PRODUCTS.some(p => p.id === prod.id)) {
+      PRODUCTS.push({
+        ...prod,
+        image_url: prod.image_url || '',
+        emoji: prod.emoji || '🎮'
+      });
+    }
+  });
+}
+
+function persistProductOverrides() {
+  // NOTA: a mesma chave precisa sustentar override de preço/estoque e também adição/exclusão de produtos.
+  const overrides = {};
+  const customProducts = PRODUCTS.filter(p => !BASE_PRODUCT_IDS.has(p.id)).map(p => ({ ...p }));
+  const deletedIds = BASE_PRODUCTS.filter(base => !PRODUCTS.some(p => p.id === base.id)).map(base => base.id);
+  BASE_PRODUCTS.forEach(base => {
+    const current = PRODUCTS.find(p => p.id === base.id);
+    if (!current) return;
+    if (current.price !== base.price || current.stock !== base.stock || (current.image_url || '') !== (base.image_url || '') || (current.emoji || '') !== (base.emoji || '')) {
+      overrides[base.id] = {
+        price: current.price,
+        stock: current.stock,
+        image_url: current.image_url || '',
+        emoji: current.emoji || ''
+      };
+    }
+  });
+  localStorage.setItem(PRODUCT_OVERRIDES_KEY, JSON.stringify({ overrides, customProducts, deletedIds }));
+}
+
 /* ══════════════════════════════════════════════
    CATEGORIAS
 ══════════════════════════════════════════════ */
@@ -1268,12 +1407,14 @@ let checkoutData = {};
 let selectedPayment = '';
 let adminLogged = false;
 
-const WA = '5524998840803';
+const DEFAULT_WA = '5524998840803';
 const ADMIN_KEY = 'sg_admin_pwd';
 const CART_KEY = 'sg_cart_v2';
 const PAY_KEY = 'sg_pay_cfg';
 const ORDERS_KEY = 'sg_orders_v2';
 const CFG_KEY = 'sg_config';
+const PRODUCT_OVERRIDES_KEY = 'sg_products_overrides';
+const CUPONS = { START10: 0.10, FRETE5: 0.05 };
 
 const getPwd = () => localStorage.getItem(ADMIN_KEY) || 'startgames2025';
 const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
@@ -1282,6 +1423,21 @@ const getPayCfg = () => { try { return JSON.parse(localStorage.getItem(PAY_KEY))
 const getOrders = () => { try { return JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch { return []; } };
 const saveOrders = d => localStorage.setItem(ORDERS_KEY, JSON.stringify(d));
 const getCfg = () => { try { return JSON.parse(localStorage.getItem(CFG_KEY)) || {}; } catch { return {}; } };
+const getWaNumber = () => getCfg().wa || DEFAULT_WA;
+const getProductOverrideStore = () => {
+  try {
+    const raw = JSON.parse(localStorage.getItem(PRODUCT_OVERRIDES_KEY)) || {};
+    return {
+      overrides: raw.overrides || {},
+      customProducts: Array.isArray(raw.customProducts) ? raw.customProducts : [],
+      deletedIds: Array.isArray(raw.deletedIds) ? raw.deletedIds : []
+    };
+  } catch {
+    return { overrides: {}, customProducts: [], deletedIds: [] };
+  }
+};
+
+applyProductOverrides();
 
 function getProductById(id) { return PRODUCTS.find(p => p.id === id); }
 
@@ -1311,6 +1467,261 @@ function mockClass(cat) {
   return map[cat] || 'consoles';
 }
 
+function renderProdVisual(p, className, extraAttrs = '') {
+  const baseClass = `${className} ${mockClass(p.category)}`.trim();
+  if (p.image_url) {
+    return `<div class="${baseClass}" ${extraAttrs}><img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border:none"></div>`;
+  }
+  return `<div class="${baseClass}" ${extraAttrs}>${p.emoji || '🎮'}</div>`;
+}
+
+function svgDataUri(svg) {
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+function svgSafe(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function pickProductIllustration(p) {
+  const name = (p.name || '').toLowerCase();
+  const category = p.category;
+  const cfg = {
+    bg1: '#ffffff',
+    bg2: '#d9e8ff',
+    accent: '#5C94FC',
+    detail: '#E52521',
+    icon: 'console'
+  };
+
+  if (category === 'retro') {
+    cfg.bg1 = '#ffd46b';
+    cfg.bg2 = '#e68b42';
+    cfg.accent = '#C84C0C';
+    cfg.detail = '#5B8B3E';
+    cfg.icon = 'retro-console';
+  } else if (category === 'acessorios') {
+    cfg.bg1 = '#fff8df';
+    cfg.bg2 = '#f9d76b';
+    cfg.accent = '#5C94FC';
+    cfg.detail = '#E52521';
+    cfg.icon = 'controller';
+  } else if (category === 'tecnologia') {
+    cfg.bg1 = '#ecfbff';
+    cfg.bg2 = '#b9efff';
+    cfg.accent = '#1A0A2E';
+    cfg.detail = '#5C94FC';
+    cfg.icon = 'monitor';
+  } else if (category === 'jogos') {
+    cfg.bg1 = '#2f1658';
+    cfg.bg2 = '#5C94FC';
+    cfg.accent = '#F9D76B';
+    cfg.detail = '#E52521';
+    cfg.icon = 'case';
+  }
+
+  if (/switch|steam deck|game boy|miyoo|anbernic|analogue pocket/.test(name)) cfg.icon = 'handheld';
+  if (/ps5|playstation 5|xbox series|xbox one|atari vcs/.test(name)) cfg.icon = 'console';
+  if (/dualsense|controle|8bitdo|grip/.test(name)) cfg.icon = 'controller';
+  if (/headset|pulse/.test(name)) cfg.icon = 'headset';
+  if (/cabo|hub|base carregadora/.test(name)) cfg.icon = 'cable';
+  if (/monitor/.test(name)) cfg.icon = 'monitor';
+  if (/webcam|captura/.test(name)) cfg.icon = 'camera';
+  if (/ssd|memória|memoria/.test(name)) cfg.icon = 'chip';
+  if (/teclado/.test(name)) cfg.icon = 'keyboard';
+  if (/mouse pad/.test(name)) cfg.icon = 'pad';
+  if (/mouse gamer/.test(name)) cfg.icon = 'mouse';
+  if (/cadeira/.test(name)) cfg.icon = 'chair';
+  if (/mega drive|super nintendo|nintendo 64|playstation 1|sega saturn/.test(name)) cfg.icon = 'retro-console';
+  if (/cartucho|pokémon red|pokemon red/.test(name)) cfg.icon = 'cartridge';
+  if (category === 'jogos' && /mario kart/.test(name)) cfg.icon = 'kart';
+  if (category === 'jogos' && /zelda|elden ring|hogwarts|metroid/.test(name)) cfg.icon = 'sword';
+  if (category === 'jogos' && /spider-man|god of war|street fighter|sonic/.test(name)) cfg.icon = 'burst';
+  if (category === 'jogos' && /minecraft|among us|ea sports fc/.test(name)) cfg.icon = 'cube';
+  return cfg;
+}
+
+function buildProductSvg(p) {
+  const cfg = pickProductIllustration(p);
+  const title = svgSafe(p.name);
+  const badge = svgSafe(p.badge || CATS[p.category]?.label || 'Start Games');
+  const price = svgSafe(fmt(p.price || 0));
+  const category = svgSafe(CATS[p.category]?.label || p.category || 'Produto');
+  const lines = [];
+
+  if (cfg.icon === 'console') {
+    lines.push(`<rect x="94" y="78" width="172" height="92" rx="18" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="140" cy="124" r="14" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<circle cx="220" cy="124" r="14" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<rect x="126" y="190" width="108" height="26" rx="13" fill="#fff7df" stroke="#000" stroke-width="6"/>`);
+  }
+  if (cfg.icon === 'handheld') {
+    lines.push(`<rect x="82" y="70" width="196" height="132" rx="22" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="124" y="94" width="112" height="62" rx="8" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<circle cx="114" cy="136" r="12" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<circle cx="246" cy="118" r="8" fill="${cfg.detail}" stroke="#000" stroke-width="4"/>`);
+    lines.push(`<circle cx="264" cy="136" r="8" fill="${cfg.detail}" stroke="#000" stroke-width="4"/>`);
+  }
+  if (cfg.icon === 'retro-console') {
+    lines.push(`<rect x="88" y="92" width="184" height="86" rx="10" fill="#f5c07a" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="112" y="116" width="136" height="18" rx="8" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<rect x="130" y="152" width="100" height="16" rx="8" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'controller') {
+    lines.push(`<path d="M116 162c-18 0-30-14-30-32 0-26 18-44 44-44h100c26 0 44 18 44 44 0 18-12 32-30 32-14 0-20-8-28-18H144c-8 10-14 18-28 18Z" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="146" cy="118" r="11" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<circle cx="218" cy="112" r="8" fill="${cfg.detail}" stroke="#000" stroke-width="4"/>`);
+    lines.push(`<circle cx="238" cy="130" r="8" fill="${cfg.detail}" stroke="#000" stroke-width="4"/>`);
+  }
+  if (cfg.icon === 'headset') {
+    lines.push(`<path d="M104 146v-20c0-42 30-70 76-70s76 28 76 70v20" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round"/>`);
+    lines.push(`<rect x="96" y="132" width="30" height="54" rx="10" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="254" y="132" width="30" height="54" rx="10" fill="${cfg.detail}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<path d="M254 176c18 8 24 16 26 30" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round"/>`);
+  }
+  if (cfg.icon === 'cable') {
+    lines.push(`<path d="M94 172c34 0 34-76 72-76s38 76 72 76" fill="none" stroke="#000" stroke-width="10" stroke-linecap="round"/>`);
+    lines.push(`<rect x="78" y="154" width="34" height="34" rx="8" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="238" y="154" width="34" height="34" rx="8" fill="${cfg.detail}" stroke="#000" stroke-width="6"/>`);
+  }
+  if (cfg.icon === 'monitor') {
+    lines.push(`<rect x="84" y="64" width="192" height="118" rx="10" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="102" y="82" width="156" height="82" rx="6" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<rect x="154" y="188" width="52" height="14" rx="6" fill="#fff" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<rect x="134" y="202" width="92" height="14" rx="7" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'camera') {
+    lines.push(`<rect x="92" y="92" width="180" height="102" rx="16" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="182" cy="142" r="28" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="182" cy="142" r="12" fill="#fff" stroke="#000" stroke-width="4"/>`);
+    lines.push(`<rect x="110" y="74" width="52" height="22" rx="8" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'chip') {
+    lines.push(`<rect x="118" y="82" width="124" height="124" rx="14" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="146" y="110" width="68" height="68" rx="10" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<g stroke="#000" stroke-width="5">${Array.from({length:4},(_,i)=>`<line x1="${110+i*18}" y1="68" x2="${110+i*18}" y2="82"/><line x1="${110+i*18}" y1="206" x2="${110+i*18}" y2="220"/><line x1="68" y1="${110+i*18}" x2="82" y2="${110+i*18}"/><line x1="278" y1="${110+i*18}" x2="292" y2="${110+i*18}"/>`).join('')}</g>`);
+  }
+  if (cfg.icon === 'keyboard') {
+    lines.push(`<rect x="80" y="114" width="200" height="84" rx="12" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<g fill="${cfg.accent}" stroke="#000" stroke-width="3">${Array.from({length:4},(_,r)=>Array.from({length:8},(_,c)=>`<rect x="${96+c*20}" y="${128+r*14}" width="14" height="10" rx="2"/>`).join('')).join('')}</g>`);
+  }
+  if (cfg.icon === 'mouse') {
+    lines.push(`<path d="M182 68c34 0 56 26 56 62v40c0 34-22 58-56 58s-56-24-56-58v-40c0-36 22-62 56-62Z" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<line x1="182" y1="84" x2="182" y2="122" stroke="${cfg.accent}" stroke-width="8" stroke-linecap="round"/>`);
+  }
+  if (cfg.icon === 'pad') {
+    lines.push(`<rect x="74" y="96" width="212" height="106" rx="14" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="96" y="118" width="168" height="62" rx="8" fill="${cfg.accent}" opacity=".35" stroke="#000" stroke-width="4"/>`);
+  }
+  if (cfg.icon === 'chair') {
+    lines.push(`<rect x="134" y="74" width="92" height="82" rx="18" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="122" y="152" width="116" height="44" rx="14" fill="${cfg.detail}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<line x1="180" y1="196" x2="180" y2="230" stroke="#000" stroke-width="8" stroke-linecap="round"/>`);
+    lines.push(`<line x1="152" y1="230" x2="208" y2="230" stroke="#000" stroke-width="8" stroke-linecap="round"/>`);
+  }
+  if (cfg.icon === 'cartridge') {
+    lines.push(`<path d="M108 78h144v28h18v100H90V106h18Z" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="126" y="122" width="108" height="50" rx="8" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'case') {
+    lines.push(`<rect x="118" y="66" width="124" height="156" rx="10" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="132" y="86" width="96" height="110" rx="8" fill="${cfg.accent}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'kart') {
+    lines.push(`<circle cx="132" cy="176" r="18" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="240" cy="176" r="18" fill="#fff" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<path d="M112 166h118l-16-42h-56l-18 22h-28Z" fill="${cfg.detail}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="188" cy="120" r="16" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+  }
+  if (cfg.icon === 'sword') {
+    lines.push(`<path d="M186 72 224 110 170 164 132 126Z" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<rect x="116" y="166" width="52" height="18" rx="9" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+    lines.push(`<rect x="134" y="184" width="16" height="42" rx="8" fill="#fff" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'burst') {
+    lines.push(`<path d="M180 70 204 124 262 128 218 166 232 222 180 190 128 222 142 166 98 128 156 124Z" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<circle cx="180" cy="146" r="16" fill="${cfg.detail}" stroke="#000" stroke-width="5"/>`);
+  }
+  if (cfg.icon === 'cube') {
+    lines.push(`<path d="M180 76 238 110 180 144 122 110Z" fill="${cfg.accent}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<path d="M122 110v68l58 34v-68Z" fill="${cfg.detail}" stroke="#000" stroke-width="6"/>`);
+    lines.push(`<path d="M238 110v68l-58 34v-68Z" fill="#fff" stroke="#000" stroke-width="6"/>`);
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260">
+    <defs>
+      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${cfg.bg1}"/>
+        <stop offset="100%" stop-color="${cfg.bg2}"/>
+      </linearGradient>
+    </defs>
+    <rect width="360" height="260" fill="url(#bg)"/>
+    <rect x="14" y="14" width="332" height="232" rx="18" fill="none" stroke="#000" stroke-width="6"/>
+    <circle cx="36" cy="34" r="9" fill="${cfg.detail}" stroke="#000" stroke-width="3"/>
+    <circle cx="64" cy="34" r="9" fill="${cfg.accent}" stroke="#000" stroke-width="3"/>
+    <rect x="26" y="42" width="308" height="2" fill="#000" opacity=".18"/>
+    ${lines.join('')}
+    <rect x="28" y="202" width="304" height="34" rx="10" fill="rgba(255,255,255,.82)" stroke="#000" stroke-width="4"/>
+    <text x="40" y="222" font-family="Verdana, Arial, sans-serif" font-size="12" font-weight="700" fill="#000">${title.slice(0, 34)}</text>
+    <text x="40" y="36" font-family="Verdana, Arial, sans-serif" font-size="11" font-weight="700" fill="#000">${badge}</text>
+    <text x="256" y="222" text-anchor="end" font-family="Verdana, Arial, sans-serif" font-size="12" font-weight="700" fill="#000">${price}</text>
+    <text x="40" y="238" font-family="Verdana, Arial, sans-serif" font-size="9" font-weight="700" fill="#000" opacity=".72">${category}</text>
+  </svg>`;
+}
+
+function ensureProductImages() {
+  PRODUCTS.forEach(p => {
+    if (!p.image_url) p.image_url = svgDataUri(buildProductSvg(p));
+  });
+}
+
+function getCheckoutTotals() {
+  const subtotal = cartTotal();
+  const code = (checkoutData.cupom || '').toUpperCase();
+  const rate = CUPONS[code] || 0;
+  const discount = subtotal * rate;
+  const total = Math.max(0, subtotal - discount);
+  return { subtotal, discount, total, code, rate };
+}
+
+function applyCoupon() {
+  const input = document.getElementById('co-coupon');
+  const raw = (input?.value || '').trim().toUpperCase();
+  if (!raw) {
+    checkoutData.cupom = '';
+    renderCheckoutStep();
+    return;
+  }
+  if (!CUPONS[raw]) {
+    alert('Cupom inválido.');
+    return;
+  }
+  checkoutData.cupom = raw;
+  renderCheckoutStep();
+}
+
+function goBackToCategory(cat) {
+  if (history.length > 1) history.back();
+  else navigate('category/' + cat);
+}
+
+function refreshDynamicWaLinks() {
+  const wa = getWaNumber();
+  const heroBtn = document.getElementById('hero-wa-btn');
+  const contactBtn = document.getElementById('contact-wa-btn');
+  const footerBtn = document.getElementById('footer-wa-btn');
+  const floatBtn = document.getElementById('wa-float');
+  if (heroBtn) heroBtn.href = `https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vim pelo site e quero saber mais.')}`;
+  if (contactBtn) contactBtn.href = `https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vim pelo site.')}`;
+  if (footerBtn) footerBtn.href = `https://wa.me/${wa}`;
+  if (floatBtn) floatBtn.href = `https://wa.me/${wa}?text=${encodeURIComponent('Olá! Vim pelo site.')}`;
+}
+
 /* ══════════════════════════════════════════════
    NAVEGAÇÃO SPA
 ══════════════════════════════════════════════ */
@@ -1328,10 +1739,13 @@ function navigate(route, pushState = true) {
 function doNavigate(route) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-cat-btn').forEach(b => b.classList.remove('active'));
+  const metaDesc = document.querySelector('meta[name="description"]');
 
   if (route === 'home' || route === '') {
     document.getElementById('page-home').classList.add('active');
     renderHomeTab(homeTab);
+    document.title = 'Start Games e Tecnologia | Loja Gamer em Resende - RJ';
+    if (metaDesc) metaDesc.setAttribute('content', 'Loja gamer em Resende - RJ com consoles, acessórios, tecnologia, jogos, checkout no site e atendimento rápido no WhatsApp.');
   } else if (route.startsWith('category/')) {
     const cat = route.replace('category/', '');
     currentCat = cat;
@@ -1340,10 +1754,15 @@ function doNavigate(route) {
     document.getElementById('page-category').classList.add('active');
     document.querySelector(`.nav-cat-btn[data-cat="${cat}"]`)?.classList.add('active');
     renderCategoryPage(cat);
+    document.title = `${CATS[cat]?.label || cat} | Start Games`;
+    if (metaDesc) metaDesc.setAttribute('content', `Confira ${CATS[cat]?.label || cat} na Start Games e Tecnologia em Resende - RJ, com catálogo, estoque atualizado e compra rápida.`);
   } else if (route.startsWith('product/')) {
     const id = route.replace('product/', '');
+    const product = getProductById(id);
     document.getElementById('page-product').classList.add('active');
     renderProductPage(id);
+    document.title = `${product?.name || 'Produto'} | Start Games`;
+    if (metaDesc) metaDesc.setAttribute('content', product ? `${product.name} na Start Games. ${product.desc}` : 'Produto gamer disponível na Start Games e Tecnologia.');
   }
 }
 
@@ -1358,6 +1777,8 @@ window.addEventListener('popstate', e => {
 function renderHomeTab(tab) {
   homeTab = tab;
   document.querySelectorAll('.catalog-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  const homeSearchInput = document.getElementById('home-search');
+  if (homeSearchInput) homeSearchInput.value = '';
   const prods = PRODUCTS.filter(p => p.category === tab);
   const feat = prods.find(p => p.featured) || prods[0];
   const items = prods.filter(p => p.id !== feat.id).slice(0, 4);
@@ -1367,13 +1788,14 @@ function renderHomeTab(tab) {
 
   document.getElementById('home-feature').innerHTML = feat ? `
     <div class="catalog-feature-wrap">
+      ${renderProdVisual(feat, 'prod-mock', '')}
       <div class="tag ${feat.badge_color === 'red' ? 'red' : feat.badge_color === 'green' ? 'green' : ''}">${feat.badge}</div>
       <h4>${feat.name}</h4>
       <p style="font-size:9px;line-height:2;margin:8px 0">${feat.desc}</p>
       <span class="catalog-price">${feat.price_old ? `<small>${fmt(feat.price_old)}</small>` : ''}${fmt(feat.price)}</span>
       <div class="catalog-actions">
-        <button class="btn btn-secondary" onclick="addToCart('${feat.id}')">+ Carrinho</button>
-        <a class="btn btn-ghost" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Tenho interesse em: ' + feat.name)}" target="_blank">WhatsApp</a>
+        <button class="btn btn-secondary" onclick="addToCart('${feat.id}', this)">+ Carrinho</button>
+        <a class="btn btn-ghost" href="https://wa.me/${getWaNumber()}?text=${encodeURIComponent('Olá! Tenho interesse em: ' + feat.name)}" target="_blank">WhatsApp</a>
       </div>
     </div>` : '';
 
@@ -1384,7 +1806,7 @@ function renderHomeTab(tab) {
       <p>${item.desc.substring(0,80)}...</p>
       <span class="catalog-price">${item.price_old ? `<small>${fmt(item.price_old)}</small>` : ''}${fmt(item.price)}</span>
       <div class="catalog-actions">
-        <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}')">+ Carrinho</button>
+        <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}', this)">+ Carrinho</button>
         <button class="btn btn-ghost btn-sm" onclick="navigate('product/${item.id}')">Ver</button>
       </div>
     </div>`).join('');
@@ -1408,7 +1830,7 @@ function debouncedHomeSearch(val) {
         <p>${item.desc.substring(0,80)}...</p>
         <span class="catalog-price">${fmt(item.price)}</span>
         <div class="catalog-actions">
-          <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}')">+ Carrinho</button>
+          <button class="btn btn-secondary btn-sm" onclick="addToCart('${item.id}', this)">+ Carrinho</button>
           <button class="btn btn-ghost btn-sm" onclick="navigate('product/${item.id}')">Ver</button>
         </div>
       </div>`).join('') : '<p style="font-size:9px;grid-column:1/-1;text-align:center;padding:20px;opacity:.7">GAME OVER — Nenhum produto encontrado</p>';
@@ -1492,15 +1914,15 @@ function renderProdCard(p) {
       ${lowStock ? `<span class="prod-stock-tag">⚠ ${p.stock} restantes</span>` : ''}
       ${noStock ? `<span class="prod-stock-tag">Esgotado</span>` : ''}
     </div>
-    <div class="prod-mock ${mockClass(p.category)}" onclick="navigate('product/${p.id}')">${p.emoji}</div>
+    ${renderProdVisual(p, 'prod-mock', `onclick="navigate('product/${p.id}')"`)}
     <div class="prod-info" onclick="navigate('product/${p.id}')">
       <div class="prod-name">${p.name}</div>
       <div class="prod-desc">${p.desc}</div>
       <div class="prod-price">${p.price_old ? `<small>${fmt(p.price_old)}</small>` : ''}${fmt(p.price)}</div>
     </div>
     <div class="prod-btns">
-      <button class="btn btn-secondary" onclick="addToCart('${p.id}')" ${noStock ? 'disabled' : ''}>+ Carrinho</button>
-      <a class="btn btn-ghost" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Interesse em: ' + p.name + ' - ' + fmt(p.price))}" target="_blank">WA</a>
+      <button class="btn btn-secondary" onclick="addToCart('${p.id}', this)" ${noStock ? 'disabled' : ''}>+ Carrinho</button>
+      <a class="btn btn-ghost" href="https://wa.me/${getWaNumber()}?text=${encodeURIComponent('Olá! Interesse em: ' + p.name + ' - ' + fmt(p.price))}" target="_blank">WA</a>
     </div>
   </div>`;
 }
@@ -1543,7 +1965,9 @@ function renderProductPage(id) {
   // mock
   const mock = document.getElementById('product-mock-big');
   mock.className = `prod-mock-big ${mockClass(p.category)}`;
-  mock.textContent = p.emoji;
+  mock.innerHTML = p.image_url
+    ? `<img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border:none">`
+    : (p.emoji || '🎮');
 
   // info
   const savings = p.price_old ? p.price_old - p.price : 0;
@@ -1551,6 +1975,7 @@ function renderProductPage(id) {
   const inStock = p.stock > 0;
 
   document.getElementById('product-info-col').innerHTML = `
+    <button class="btn btn-ghost btn-sm" onclick="goBackToCategory('${p.category}')">← Voltar</button>
     <div class="eyebrow">${CATS[p.category]?.label || p.category}</div>
     <h1>${p.name}</h1>
     <div class="product-rating">
@@ -1572,8 +1997,8 @@ function renderProductPage(id) {
       </div>
     </div>
     <div class="product-action-btns">
-      <button class="btn btn-secondary" onclick="addToCartQty('${p.id}')" ${!inStock?'disabled':''}>+ Adicionar ao carrinho</button>
-      <a class="btn btn-green" href="https://wa.me/${WA}?text=${encodeURIComponent('Olá! Quero comprar: ' + p.name + ' por ' + fmt(p.price))}" target="_blank">Comprar pelo WhatsApp</a>
+      <button class="btn btn-secondary" onclick="addToCartQty('${p.id}', parseInt(document.getElementById('prod-qty')?.value || 1), this)" ${!inStock?'disabled':''}>+ Adicionar ao carrinho</button>
+      <a class="btn btn-green" href="https://wa.me/${getWaNumber()}?text=${encodeURIComponent('Olá! Quero comprar: ' + p.name + ' por ' + fmt(p.price))}" target="_blank">Comprar pelo WhatsApp</a>
     </div>`;
 
   // relacionados
@@ -1589,17 +2014,48 @@ function changeQty(dir) {
   if (val >= 1 && val <= max) inp.value = val;
 }
 
-function addToCartQty(id) {
-  const qty = parseInt(document.getElementById('prod-qty')?.value || 1);
-  for (let i = 0; i < qty; i++) addToCart(id, false);
+function syncProductImages() {
+  ensureProductImages();
+  renderHomeTab(homeTab);
+  if (location.hash.startsWith('#category/')) renderCategoryPage(currentCat);
+  if (location.hash.startsWith('#product/')) renderProductPage(location.hash.replace('#product/',''));
   updateCartUI();
+}
+
+function animateCoinFromButton(btnEl) {
+  if (!btnEl) return;
+  const pop = document.createElement('div');
+  pop.style.cssText = 'position:fixed;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,#F9D76B 60%,#E8A820 100%);border:2px solid #000;z-index:999;pointer-events:none;animation:coin-pop-abs .5s ease forwards';
+  const rect = btnEl.getBoundingClientRect();
+  pop.style.left = rect.left + rect.width / 2 - 10 + 'px';
+  pop.style.top = rect.top - 10 + 'px';
+  if (!document.getElementById('coin-pop-style')) {
+    const s = document.createElement('style');
+    s.id = 'coin-pop-style';
+    s.textContent = '@keyframes coin-pop-abs{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-48px)}}';
+    document.head.appendChild(s);
+  }
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 520);
+}
+
+function addToCartQty(id, qty, btnEl) {
+  const p = getProductById(id);
+  if (!p || p.stock === 0) return;
+  const safeQty = Math.max(1, parseInt(qty || document.getElementById('prod-qty')?.value || 1, 10));
+  const existing = cart.find(c => c.id === id);
+  if (existing) existing.qty = Math.min(existing.qty + safeQty, p.stock);
+  else cart.push({ id, qty: Math.min(safeQty, p.stock) });
+  saveCartLS();
+  updateCartUI();
+  animateCoinFromButton(btnEl);
   openCart();
 }
 
 /* ══════════════════════════════════════════════
    CARRINHO
 ══════════════════════════════════════════════ */
-function addToCart(id, open = false) {
+function addToCart(id, btnEl, open = false) {
   const p = getProductById(id);
   if (!p || p.stock === 0) return;
   const existing = cart.find(c => c.id === id);
@@ -1611,23 +2067,7 @@ function addToCart(id, open = false) {
   saveCartLS();
   updateCartUI();
   if (open) openCart();
-  // coin pop animation
-  const btn = event?.target;
-  if (btn) {
-    const pop = document.createElement('div');
-    pop.style.cssText = 'position:fixed;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c8 20%,#F9D76B 60%,#E8A820 100%);border:2px solid #000;z-index:999;pointer-events:none;animation:coin-pop-abs .5s ease forwards';
-    const rect = btn.getBoundingClientRect();
-    pop.style.left = rect.left + rect.width/2 - 10 + 'px';
-    pop.style.top = rect.top - 10 + 'px';
-    if (!document.getElementById('coin-pop-style')) {
-      const s = document.createElement('style');
-      s.id = 'coin-pop-style';
-      s.textContent = '@keyframes coin-pop-abs{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-48px)}}';
-      document.head.appendChild(s);
-    }
-    document.body.appendChild(pop);
-    setTimeout(() => pop.remove(), 520);
-  }
+  animateCoinFromButton(btnEl);
 }
 
 function removeFromCart(id) {
@@ -1670,7 +2110,7 @@ function updateCartUI() {
     if (!p) return '';
     return `
     <div class="cart-item">
-      <div class="cart-item-mock ${mockClass(p.category)}">${p.emoji}</div>
+      ${renderProdVisual(p, 'cart-item-mock', '')}
       <div class="cart-item-info">
         <div class="cart-item-name">${p.name}</div>
         <span class="cart-item-price">${fmt(p.price)}</span>
@@ -1729,6 +2169,7 @@ function renderCheckoutStep() {
   updateStepIndicators();
   const body = document.getElementById('checkout-body');
   const footer = document.getElementById('checkout-footer');
+  const totals = getCheckoutTotals();
 
   if (checkoutStep === 1) {
     body.innerHTML = `
@@ -1749,7 +2190,8 @@ function renderCheckoutStep() {
       <div style="margin-top:14px;padding:14px;border:2px solid #000;background:rgba(255,255,255,.7);font-size:9px;line-height:2">
         <strong style="font-size:10px">Resumo do pedido:</strong><br>
         ${cart.map(c => { const p = getProductById(c.id); return p ? `${p.name} × ${c.qty} — ${fmt(p.price * c.qty)}` : ''; }).join('<br>')}
-        <br><strong>Total: ${fmt(cartTotal())}</strong>
+        ${totals.discount ? `<br>Desconto (${totals.code}): -${fmt(totals.discount)}` : ''}
+        <br><strong>Total: ${fmt(totals.total)}</strong>
       </div>`;
     footer.innerHTML = `<button class="btn btn-secondary" onclick="nextCheckoutStep()">Próximo →</button>`;
   }
@@ -1790,11 +2232,21 @@ function renderCheckoutStep() {
           <input class="pix-key" type="text" value="${pixKey}" readonly id="pix-key-val">
           <button class="copy-btn" onclick="copyPix()">Copiar</button>
         </div>
-        <p style="font-size:9px;line-height:2;margin-bottom:10px">Valor a pagar: <strong>${fmt(cartTotal())}</strong></p>
+        <p style="font-size:9px;line-height:2;margin-bottom:10px">Valor a pagar: <strong>${fmt(totals.total)}</strong></p>
         <p style="font-size:9px;line-height:2">Após pagar, clique em Enviar Comprovante para finalizar o pedido.</p>
       </div>
       <div class="payment-detail ${selectedPayment==='wa'?'show':''}" id="pay-wa">
         <p style="font-size:9px;line-height:2;margin-bottom:12px">Clique abaixo para abrir o WhatsApp com o resumo do seu pedido.</p>
+      </div>
+      <div style="margin-top:18px;padding:14px;border:2px solid #000;background:rgba(255,255,255,.7)">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
+          <div class="form-field" style="flex:1;min-width:220px;margin:0">
+            <label>Código do cupom</label>
+            <input id="co-coupon" type="text" placeholder="Código do cupom" value="${checkoutData.cupom || ''}">
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        ${totals.discount ? `<p style="font-size:9px;line-height:2;margin-top:10px">Cupom <strong>${totals.code}</strong> aplicado: -${fmt(totals.discount)}</p>` : ''}
       </div>`;
     footer.innerHTML = `
       <button class="btn btn-ghost" onclick="checkoutStep=1;renderCheckoutStep()">← Voltar</button>
@@ -1802,35 +2254,20 @@ function renderCheckoutStep() {
   }
 
   else if (checkoutStep === 3) {
-    const orderId = '#SG' + String(Date.now()).slice(-6);
-    const orders = getOrders();
-    orders.unshift({
-      id: orderId,
-      name: checkoutData.name,
-      wa: checkoutData.wa,
-      delivery: checkoutData.delivery,
-      payment: selectedPayment,
-      items: cart.map(c => { const p = getProductById(c.id); return {name:p?.name, qty:c.qty, price:p?.price}; }),
-      total: cartTotal(),
-      status: 'Novo',
-      date: new Date().toLocaleDateString('pt-BR')
-    });
-    saveOrders(orders);
-    cart = [];
-    saveCartLS();
-    updateCartUI();
+    const order = checkoutData.order;
+    if (!order) return;
 
     body.innerHTML = `
       <div class="level-up">
         <h2>LEVEL UP! 🌟</h2>
         <div class="coins-rain" id="coins-rain"></div>
         <p>Pedido recebido com sucesso!</p>
-        <div class="order-number">${orderId}</div>
-        <p>Nome: <strong>${checkoutData.name}</strong></p>
-        <p>Retirada: <strong>${checkoutData.delivery === 'loja' ? 'Na loja' : 'Entrega'}</strong></p>
-        <p>Total: <strong>${fmt(cartTotal() || 0)}</strong></p>
+        <div class="order-number">${order.id}</div>
+        <p>Nome: <strong>${order.name}</strong></p>
+        <p>Retirada: <strong>${order.delivery === 'loja' ? 'Na loja' : 'Entrega'}</strong></p>
+        <p>Total: <strong>${fmt(order.total || 0)}</strong></p>
         <p style="margin-top:14px">Entraremos em contato pelo WhatsApp para confirmar.</p>
-        <a class="btn btn-green" style="margin-top:18px" href="https://wa.me/${WA}?text=${encodeURIComponent('Pedido ' + orderId + ' | ' + checkoutData.name + ' | Total: R$ ' + (cartTotal() || 0).toFixed(2))}" target="_blank">Confirmar no WhatsApp</a>
+        <a class="btn btn-green" style="margin-top:18px" href="https://wa.me/${getWaNumber()}?text=${encodeURIComponent('Pedido ' + order.id + ' | ' + order.name + ' | Total: ' + fmt(order.total || 0))}" target="_blank">Confirmar no WhatsApp</a>
       </div>`;
     footer.innerHTML = `<button class="btn btn-secondary" onclick="closeCheckout();navigate('home')">Voltar para a loja</button>`;
     spawnCoins();
@@ -1879,10 +2316,45 @@ function copyPix() {
 
 function finishPayment() {
   if (!selectedPayment) { alert('Selecione uma forma de pagamento!'); return; }
-  if (selectedPayment === 'wa') {
-    const msg = 'Pedido | ' + checkoutData.name + '\n' + cart.map(c => { const p = getProductById(c.id); return (p?.name || '') + ' × ' + c.qty; }).join('\n') + '\nTotal: ' + fmt(cartTotal());
-    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
+  for (const item of cart) {
+    const prod = getProductById(item.id);
+    if (!prod || item.qty > prod.stock) {
+      alert(`Estoque insuficiente para ${prod?.name || 'um produto do carrinho'}. Ajuste a quantidade antes de continuar.`);
+      return;
+    }
   }
+  const totals = getCheckoutTotals();
+  if (selectedPayment === 'wa') {
+    const msg = 'Pedido | ' + checkoutData.name + '\n' + cart.map(c => { const p = getProductById(c.id); return (p?.name || '') + ' × ' + c.qty; }).join('\n') + '\nTotal: ' + fmt(totals.total);
+    window.open('https://wa.me/' + getWaNumber() + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+  const orderId = '#SG' + String(Date.now()).slice(-6);
+  const orders = getOrders();
+  const order = {
+    id: orderId,
+    name: checkoutData.name,
+    wa: checkoutData.wa,
+    delivery: checkoutData.delivery,
+    payment: selectedPayment,
+    items: cart.map(c => { const p = getProductById(c.id); return { id: c.id, name: p?.name, qty: c.qty, price: p?.price }; }),
+    subtotal: totals.subtotal,
+    discount: totals.discount,
+    cupom: totals.code,
+    total: totals.total,
+    status: 'Novo',
+    date: new Date().toLocaleDateString('pt-BR')
+  };
+  orders.unshift(order);
+  saveOrders(orders);
+  cart.forEach(item => {
+    const prod = getProductById(item.id);
+    if (prod) prod.stock = Math.max(0, prod.stock - item.qty);
+  });
+  persistProductOverrides();
+  cart = [];
+  saveCartLS();
+  updateCartUI();
+  checkoutData.order = order;
   checkoutStep = 3;
   renderCheckoutStep();
 }
@@ -1923,8 +2395,11 @@ function doAdminLogin() {
     document.getElementById('admin-err').classList.remove('show');
     renderAdminStock();
     const cfg = getPayCfg();
+    const storeCfg = getCfg();
     if (cfg.mp_link) document.getElementById('cfg-mp-link').value = cfg.mp_link;
     if (cfg.pix_key) document.getElementById('cfg-pix').value = cfg.pix_key;
+    document.getElementById('cfg-wa').value = storeCfg.wa || getWaNumber();
+    document.getElementById('cfg-horario').value = storeCfg.horario || '';
   } else {
     document.getElementById('admin-err').classList.add('show');
     document.getElementById('admin-pwd').value = '';
@@ -1954,17 +2429,91 @@ function renderAdminStock() {
     return `<tr>
       <td style="font-weight:bold;font-size:9px">${p.name}</td>
       <td style="font-size:8px;opacity:.7">${p.category}</td>
-      <td><input class="prod-edit-input" value="${p.price.toFixed(2)}" onchange="PRODUCTS[${i}].price=parseFloat(this.value)||${p.price}"></td>
+      <td><input class="prod-edit-input" value="${p.price.toFixed(2)}" onchange="saveProductField(${i},'price',this.value)"></td>
       <td>
         <div class="qty-ctrl">
-          <button onclick="PRODUCTS[${i}].stock=Math.max(0,PRODUCTS[${i}].stock-1);renderAdminStock()">-</button>
+          <button onclick="adjustProductStock(${i},-1)">-</button>
           <span style="min-width:24px;text-align:center;font-size:10px">${p.stock}</span>
-          <button onclick="PRODUCTS[${i}].stock++;renderAdminStock()">+</button>
+          <button onclick="adjustProductStock(${i},1)">+</button>
         </div>
       </td>
       <td><span class="s-badge ${cls}">${lbl}</span></td>
+      <td><button class="btn btn-secondary btn-sm" onclick="deleteAdminProduct('${p.id}')">Excluir</button></td>
     </tr>`;
   }).join('');
+}
+
+function saveProductField(i, field, value) {
+  const p = PRODUCTS[i];
+  if (!p) return;
+  if (field === 'price') p.price = Math.max(0, parseFloat(value) || 0);
+  if (field === 'stock') p.stock = Math.max(0, parseInt(value, 10) || 0);
+  persistProductOverrides();
+  ensureProductImages();
+  renderAdminStock();
+  renderHomeTab(homeTab);
+  if (location.hash.includes('category/')) renderCategoryPage(currentCat);
+  if (location.hash.includes('product/')) renderProductPage(location.hash.replace('#product/',''));
+}
+
+function adjustProductStock(i, delta) {
+  const p = PRODUCTS[i];
+  if (!p) return;
+  p.stock = Math.max(0, p.stock + delta);
+  persistProductOverrides();
+  ensureProductImages();
+  renderAdminStock();
+  updateCartUI();
+}
+
+function addAdminProduct() {
+  const name = document.getElementById('new-prod-name').value.trim();
+  const category = document.getElementById('new-prod-cat').value;
+  const price = parseFloat(document.getElementById('new-prod-price').value) || 0;
+  const stock = Math.max(0, parseInt(document.getElementById('new-prod-stock').value, 10) || 0);
+  const emoji = document.getElementById('new-prod-emoji').value.trim() || '🎮';
+  const image_url = document.getElementById('new-prod-image').value.trim();
+  if (!name) {
+    alert('Informe o nome do produto.');
+    return;
+  }
+  PRODUCTS.push({
+    id: 'custom_' + Date.now(),
+    name,
+    category,
+    subcategory: 'geral',
+    price,
+    price_old: null,
+    desc: 'Produto cadastrado pelo painel admin.',
+    features: ['Consulte detalhes'],
+    badge: 'Novo',
+    badge_color: '',
+    stock,
+    featured: false,
+    emoji,
+    image_url
+  });
+  persistProductOverrides();
+  ensureProductImages();
+  document.getElementById('new-prod-name').value = '';
+  document.getElementById('new-prod-price').value = '';
+  document.getElementById('new-prod-stock').value = '';
+  document.getElementById('new-prod-emoji').value = '';
+  document.getElementById('new-prod-image').value = '';
+  renderAdminStock();
+}
+
+function deleteAdminProduct(id) {
+  if (!confirm('Tem certeza? GAME OVER para este produto.')) return;
+  const idx = PRODUCTS.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  PRODUCTS.splice(idx, 1);
+  cart = cart.filter(c => c.id !== id);
+  saveCartLS();
+  persistProductOverrides();
+  ensureProductImages();
+  updateCartUI();
+  renderAdminStock();
 }
 
 function savePaymentConfig() {
@@ -1984,6 +2533,7 @@ function saveConfig() {
   if (hr) c.horario = hr;
   if (pw && pw.length >= 6) { localStorage.setItem(ADMIN_KEY, pw); document.getElementById('cfg-pwd').value = ''; }
   localStorage.setItem(CFG_KEY, JSON.stringify(c));
+  refreshDynamicWaLinks();
   const m = document.getElementById('cfg-save-ok');
   m.classList.add('show');
   setTimeout(() => m.classList.remove('show'), 2500);
@@ -2069,7 +2619,9 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 ══════════════════════════════════════════════ */
 document.getElementById('yr').textContent = new Date().getFullYear();
 cart = getCart();
+ensureProductImages();
 updateCartUI();
+refreshDynamicWaLinks();
 renderHomeTab('consoles');
 doNavigate(location.hash.replace('#','') || 'home');
 </script>
